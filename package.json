@@ -1,0 +1,29 @@
+{
+  "name": "community-hub-project",
+  "version": "1.0.0",
+  "description": "A forum/community hub for topic based webpages",
+  "main": "server.js",
+  "dependencies": {
+    "nodemon": "^2.0.6",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AGr2020Xman/community-hub-project.git"
+  },
+  "keywords": [
+    "project",
+    "orm"
+  ],
+  "author": "Multiple authors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AGr2020Xman/community-hub-project/issues"
+  },
+  "homepage": "https://github.com/AGr2020Xman/community-hub-project#readme"
+}

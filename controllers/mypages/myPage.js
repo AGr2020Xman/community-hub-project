@@ -9,6 +9,11 @@ const db = admin.firestore();
 
 // Create routes
 module.exports = (app) => {
+  // Get route for createMyPage
+  app.get("/sites/:geo/:community/create", (req, res) => {
+    res.render("createMyPage", req.params);
+  });
+
   // Get route for myPage
   app.get("/sites/:geo/:community/:name", (req, res) => {
     const siteRef = db
@@ -36,5 +41,19 @@ module.exports = (app) => {
       });
       res.render("sites", hbsObject);
     });
+  });
+
+  // Post route for site
+  app.post("/api/sites/", async (req, res) => {
+    const pageData = {
+      geo: req.body.geo,
+      community: req.body.community,
+      name: req.body.name,
+      title: req.body.title,
+      html: req.body.html,
+    };
+
+    const responseData = await db.collection("sites").add(pageData);
+    res.json(responseData);
   });
 };

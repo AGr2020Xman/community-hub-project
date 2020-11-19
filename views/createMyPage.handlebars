@@ -1,0 +1,81 @@
+<div class="jumbotron">
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Create your MyPage</h2>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="h1-responsive text-center my-4">Enter MyPage details</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="md-form form-lg">
+                <input type="text" id="mp-title" class="form-control form-control-lg">
+                <label for="mp-title">Enter a title for your MyPage</label>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <label for="mp-url">Enter your MyPage URL</label>
+            <div class="md-form input-group mt-0 mb-3">
+                <div class="input-group-prepend">
+                    <span
+                        class="input-group-text md-addon">https://www.geoverse.com/sites/{{{geo}}}/{{{community}}}/</span>
+                </div>
+                <input type="text" class="form-control" id="mp-url">
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="md-form input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text md-addon">Paste HTML</span>
+                </div>
+                <textarea class="md-textarea form-control" id="mp-html"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <button class="btn btn-info btn-block my-4" id="create-mypage" type="button">Create MyPage</button>
+        </div>
+    </div>
+
+</div>
+<script>
+    const pageInfo = {
+        geo: "{{{geo}}}",
+        community: "{{{community}}}"
+    };
+    const createMyPageEl = document.getElementById("create-mypage");
+    const mpTitleEl = document.getElementById("mp-title");
+    const mpUrlEl = document.getElementById("mp-url");
+    const mpHtmlEl = document.getElementById("mp-html");
+
+    createMyPageEl.addEventListener("click", event => {
+        pageInfo.title = mpTitleEl.value;
+        pageInfo.name = mpUrlEl.value;
+        pageInfo.html = mpHtmlEl.value;
+        console.log(pageInfo);
+        fetch('/api/sites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(pageInfo),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Success: ", data);
+            })
+            .catch(err => {
+                console.error(`Error: ${error}`);
+            });
+    });
+
+
+
+</script>

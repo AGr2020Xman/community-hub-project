@@ -2,31 +2,14 @@
 <div class="card">
 
     <h5 class="card-header info-color white-text text-center py-4">
-        <strong>Sign up</strong>
+        <strong>Sign in</strong>
     </h5>
-
+    {{#if (messages.error) {messages.error}}}
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="#!">
-
-            <div class="form-row">
-                <div class="col">
-                    <!-- First name -->
-                    <div class="md-form">
-                        <input type="text" id="materialRegisterFormFirstName" class="form-control">
-                        <label for="materialRegisterFormFirstName">First name</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <!-- Last name -->
-                    <div class="md-form">
-                        <input type="email" id="materialRegisterFormLastName" class="form-control">
-                        <label for="materialRegisterFormLastName">Last name</label>
-                    </div>
-                </div>
-            </div>
+        <form class="text-center" style="color: #757575;" action="#!" method="POST">
 
             <!-- E-mail -->
             <div class="md-form mt-0">
@@ -56,8 +39,8 @@
 
             <!-- Terms of service -->
             <p>By clicking
-                <em>Sign up</em> you agree to our
-                <a href="" target="_blank">terms of service</a>
+                <em>Sign in</em> you agree to our
+                <a href="" target="_blank">terms of service</a></p>
 
         </form>
         <!-- Form -->

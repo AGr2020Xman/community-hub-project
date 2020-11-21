@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const initialisePassport = require('../../config/passport-config');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -45,7 +46,7 @@ app.post('/login',checkNotAuthenticated, passport.authenticate('local', {
 
 app.post('/register',checkNotAuthenticated, async (req, res) => {
   try{
-      const protectedPsw = await bcrpyt.hash(req.body.password, 10);
+      const protectedPsw = await bcrypt.hash(req.body.password, 10);
       tempDB.push({
           id: Date.now().toString(),
           name: req.body.firstName + " " + req.body.lastName,

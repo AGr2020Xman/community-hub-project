@@ -18,6 +18,7 @@ app.set("view engine", "handlebars");
 
 // Routes
 require("./controllers/mypages/myPage")(app);
+require("./controllers/testController")(app);
 
 // Listener
 const server = app.listen(PORT, () => {

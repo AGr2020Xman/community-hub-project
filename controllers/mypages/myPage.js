@@ -29,6 +29,37 @@ module.exports = (app) => {
     });
   });
 
+  // Get route for sites by geo and community
+  app.get("/sites/:geo/:community", (req, res) => {
+    const sitesRef = db
+      .collection("sites")
+      .where("geo", "==", req.params.geo)
+      .where("community", "==", req.params.community);
+    sitesRef.get().then((docs) => {
+      const hbsObject = { sites: {} };
+      docs.forEach((site) => {
+        hbsObject.sites[site.id] = {
+          ...site.data(),
+        };
+      });
+      res.render("sites", hbsObject);
+    });
+  });
+
+  // Get route for sites by geo
+  app.get("/sites/:geo", (req, res) => {
+    const sitesRef = db.collection("sites").where("geo", "==", req.params.geo);
+    sitesRef.get().then((docs) => {
+      const hbsObject = { sites: {} };
+      docs.forEach((site) => {
+        hbsObject.sites[site.id] = {
+          ...site.data(),
+        };
+      });
+      res.render("sites", hbsObject);
+    });
+  });
+
   // Get route for all sites
   app.get("/sites", async (req, res) => {
     const sitesRef = db.collection("sites");

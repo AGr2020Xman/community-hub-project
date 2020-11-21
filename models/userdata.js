@@ -47,6 +47,7 @@ User.init({
         validate: {
             notEmpty: true,
             is: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+            max: 128
         }
     },
     uniqueIdentifier: {

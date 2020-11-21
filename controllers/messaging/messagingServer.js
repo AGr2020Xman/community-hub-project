@@ -9,6 +9,11 @@ const createServer = (server) => {
   const createNamespace = (socket, namespace) => {
     console.log("Made socket connection", namespace);
 
+    socket.on("direct", (room) => {
+      console.log("Joined Room:", room);
+      socket.join(room);
+    });
+
     socket.on("new user", (data) => {
       socket.userId = data;
       activeUsers.add(data);
@@ -25,10 +30,21 @@ const createServer = (server) => {
       console.log(data);
     });
 
+    socket.on("direct message", (data) => {
+      io.of(namespace).to(data.id).emit("direct message", data);
+      console.log("Direct Message", data);
+    });
+
     socket.on("typing", (data) => {
       socket.broadcast.emit("typing", data);
     });
   };
+
+  // Create direct message namespace
+  const directNamespace = io.of("/direct");
+  directNamespace.on("connection", (socket) => {
+    createNamespace(socket, "direct");
+  });
 
   // import communities
   const communities = ["cars", "computers"];

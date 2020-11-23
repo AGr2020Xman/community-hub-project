@@ -57,9 +57,20 @@ User.init({
 
 },
 {
+    hooks: {
+        beforeCreate: (user, options) => {
+            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+        }
+    }
+},
+{
     sequelize,
     modelName: 'User'
 });
+
+User.prototype.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+  };
 
 
 

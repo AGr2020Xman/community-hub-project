@@ -1,6 +1,6 @@
 // Setup Firebase
 const admin = require("firebase-admin");
-const serviceAccount = require("/home/harish/secrets/firebaseAccountKey.json");
+const serviceAccount = require("../../firebaseAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://geoverse-5090b.firebaseio.com",

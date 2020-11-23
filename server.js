@@ -1,5 +1,6 @@
 // Dependences
 const express = require("express");
+const messaging = require("./controllers/messaging/messagingServer");
 
 // Express config
 const app = express();
@@ -17,8 +18,12 @@ app.set("view engine", "handlebars");
 
 // Routes
 require("./controllers/mypages/myPage")(app);
+require("./controllers/testController")(app);
 
 // Listener
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Geoverse main server app listening on: ${PORT}`);
 });
+
+// Create Geoverse chat server
+messaging(server);

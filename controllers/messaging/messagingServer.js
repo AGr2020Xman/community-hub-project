@@ -47,7 +47,7 @@ const createServer = (server) => {
   });
 
   // import communities
-  const communities = ["cars", "computers"];
+  const communities = ["test"];
 
   // Create a namespace for each community
   communities.forEach((communityNamespace) => {

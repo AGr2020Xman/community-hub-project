@@ -22,7 +22,7 @@ const initialise = (passport, getUserByEmail, getUserById) => {
 
     passport.serializeUser((user, done) => done(null, user.id));
     passport.deserializeUser((id, done) => {
-        done(null, getUserById(id))
+        return done(null, getUserById(id))
     });
 }
 

@@ -36,10 +36,11 @@ User.init({
             isEmail: true
         }
     },
-    username: {
-        type: DataTypes.TEXT,
+    nickname: {
+        type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        max: 20
     },
     password: {
         type: DataTypes.STRING,
@@ -52,9 +53,9 @@ User.init({
     },
     uniqueIdentifier: {
         type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4
+        defaultValue: Sequelize.UUIDV4,
+        unique: true
     }
-
 },
 {
     hooks: {

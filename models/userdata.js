@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
-    host: 'localhost',
+    host: '127.0.0.1',
     dialect: 'mysql',
     operatorsAliases: false
 });
@@ -13,9 +13,9 @@ sequelize.authenticate().then((err)=>{
 })
 
 class User extends Model {
-    static getFullName() {
-        return [this.firstname, this.lastName].join(' ');
-    }
+    // static getFullName() {
+    //     return [this.firstname, this.lastName].join(' ');
+    // }
 };
 
 User.init({

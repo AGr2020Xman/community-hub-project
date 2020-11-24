@@ -1,15 +1,22 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    operatorsAliases: false
 });
+
+sequelize.authenticate().then((err)=>{
+    console.log('Connection Successful');
+}).catch((err)=>{
+    console.log('Unable to connect to db', err);
+})
 
 class User extends Model {
     static getFullName() {
         return [this.firstname, this.lastName].join(' ');
     }
-}
+};
 
 User.init({
     firstName: {
@@ -65,11 +72,13 @@ User.init({
     }
 },
 {
-    sequelize,
+    sequelize: 'sequelize',
     modelName: 'User'
 });
 
+console.log(User === sequelize.models.User);
 
+module.exports = sequelize;
 
 
 

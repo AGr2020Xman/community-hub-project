@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "H0n@s0up1234",
-    "database": "database_development",
+    "database": "geo_verse_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

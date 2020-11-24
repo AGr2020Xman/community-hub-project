@@ -1,9 +1,10 @@
 const express = require('express');
 const passport = require('passport');
-const initialisePassport = require('../../config/passport-config');
 const bcrypt = require('bcrypt');
 
-const app = express();
+const router = express().Router;
+
+const initialisePassport = require('../../config/passport-config');
 
 initialisePassport(
   passport, 
@@ -11,7 +12,7 @@ initialisePassport(
   id => db.find(user => user.id === id)
 );
 
-// middlware
+// middleware
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
       return next();
@@ -26,25 +27,26 @@ const checkNotAuthenticated = (req, res, next) => {
   next();
 }
 
-app.get('/', checkAuthenticated, (req, res) => {
+router.get('/', checkAuthenticated, (req, res) => {
+  console.log("Req.USER log", req.user);
   res.render('index.handlebars', {name: req.user.name})
 });
 
-app.get('/login',checkNotAuthenticated, (req, res) => {
+router.get('/login',checkNotAuthenticated, (req, res) => {
   res.render('login.handlebars')
 })
 
-app.get('/register',checkNotAuthenticated, (req, res) => {
+router.get('/register',checkNotAuthenticated, (req, res) => {
   res.render('signup.handlebars')
 })
 
-app.post('/login',checkNotAuthenticated, passport.authenticate('local', {
+router.post('/login',checkNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true,
 }))
 
-app.post('/register',checkNotAuthenticated, async (req, res) => {
+router.post('/register',checkNotAuthenticated, async (req, res) => {
   try{
       const protectedPsw = await bcrypt.hash(req.body.password, 10);
       tempDB.push({
@@ -62,13 +64,12 @@ app.post('/register',checkNotAuthenticated, async (req, res) => {
 });
 
 // logout function
-app.delete('/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
   req.logOut()
   res.redirect('/login')
 });
 
-
-
+module.exports = router
 // protected (auth needed) - unprotected routes
 // route guards - ? certain routes only working when lgged in
 // component guard - ? (the create button requires authenticated user)

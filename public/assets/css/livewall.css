@@ -1,0 +1,69 @@
+.bubble-sent,
+.bubble-received {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+label {
+  color: rgba(120, 144, 156, 1) !important;
+}
+
+.bubble-sent a {
+  background-color: #42a5f5;
+  color: #fff !important;
+  border-radius: 20px 20px 3px 20px;
+  display: block;
+  max-width: 75%;
+  padding: 7px 13px 7px 13px;
+}
+
+.bubble-sent:before {
+  content: attr(data-is);
+  position: absolute;
+  right: 15px;
+  bottom: -3.8em;
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(84, 110, 122, 1);
+}
+
+.bubble-received a {
+  background: #19b956;
+  color: #fff !important;
+  border-radius: 20px 20px 20px 3px;
+  display: block;
+  max-width: 75%;
+  padding: 7px 13px 7px 13px;
+}
+
+.bubble-received:before {
+  content: attr(data-is);
+  position: absolute;
+  left: 13px;
+  bottom: -3.8em;
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(84, 110, 122, 1);
+}
+
+.chat-activity {
+  color: rgba(84, 110, 122, 1);
+  font-size: 0.75rem;
+}
+
+.post {
+  background-color: beige;
+}
+
+.post-text {
+  font-weight: 300;
+}
+
+.post-header {
+  font-size: x-small;
+  font-style: italic;
+}

@@ -62,11 +62,12 @@ app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
   }
 });
 
-// logout function
-app.delete('/api/logout', (req, res) => {
-  req.logOut()
-  res.redirect('/login')
+// Route for logging user out
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
+
 };
 
 // protected (auth needed) - unprotected routes

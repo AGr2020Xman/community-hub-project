@@ -4,11 +4,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Dependences
 const express = require("express");
+
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('express-flash');
 const db = require('./models');
 const sequelize = require('sequelize');
+
+const messaging = require("./controllers/messaging/messagingServer");
+
 
 // Express config
 const app = express();
@@ -38,8 +42,9 @@ app.use(passport.session());
 
 
 // Routes
+
 require("./controllers/loginpage/authentication")(app);
-// require("./controllers/mypages/myPage")(app);
+require("./controllers/mypages/myPage")(app);
 
 // db.sequelize.sync({ alter: true }).then(() => {
 //   app.listen(PORT, () => {
@@ -52,3 +57,16 @@ db.sequelize.sync({ force: true }).then(function() {
     console.log(`Geoverse main server app listening on: ${PORT}`);
   });
 });
+
+// require("./controllers/mypages/myPage")(app);
+require("./controllers/testController")(app);
+require("./controllers/static/static")(app);
+
+// Listener
+const server = app.listen(PORT, () => {
+  console.log(`Geoverse main server app listening on: ${PORT}`);
+});
+
+// Create Geoverse chat server
+messaging(server);
+

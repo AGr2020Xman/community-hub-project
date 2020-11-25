@@ -1,0 +1,72 @@
+<!-- Material form register -->
+<div class="card">
+
+    <h5 class="card-header info-color white-text text-center py-4">
+        <strong>Sign up</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form class="text-center signup" style="color: #757575;" action="#!" method="POST">
+
+            <div class="form-row">
+                <div class="col">
+                    <!-- First name -->
+                    <div class="md-form">
+                        <input type="text" id="firstName" class="form-control">
+                        <label for="firstName">First name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Last name -->
+                    <div class="md-form">
+                        <input type="text" id="lastName" class="form-control">
+                        <label for="lastName">Last name</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-mail -->
+            <div class="md-form mt-0">
+                <input type="email" id="email" class="form-control">
+                <label for="email">E-mail</label>
+            </div>
+
+            <!-- Username -->
+            <div class="md-form">
+                <input type="text" id="nickname" class="form-control" aria-describedby="FormNicknameHelpBlock">
+                <label for="Nickname">Nickname</label>
+                <small id="FormNicknameHelpBlock" class="form-text text-muted mb-4">
+                    At least 8 characters and 1 digit
+                </small>
+            </div>
+
+            <!-- Password -->
+            <div class="md-form">
+                <input type="password" id="password" class="form-control" aria-describedby="FormPasswordHelpBlock">
+                <label for="password">Password</label>
+                <small id="FormPasswordHelpBlock" class="form-text text-muted mb-4">
+                    Must contain at least: 1 uppercase letter, 1 alphanumeric character and 1 special character/
+                </small>
+            </div>
+            <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span> <span class="msg"></span>
+            </div>
+            <!-- Sign up button -->
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                type="submit">Register</button>
+
+            <!-- Terms of service -->
+            <p>Already have an account?
+                <em><a href="/login" {{!target="_blank"}}>Log In</a></em></p>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+<!-- Material form register -->

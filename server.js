@@ -19,6 +19,7 @@ app.set("view engine", "handlebars");
 // Routes
 // require("./controllers/mypages/myPage")(app);
 require("./controllers/testController")(app);
+require("./controllers/messaging/messagingController")(app);
 app.use(require("./controllers/messaging/messagingApi"));
 require("./controllers/static/static")(app);
 

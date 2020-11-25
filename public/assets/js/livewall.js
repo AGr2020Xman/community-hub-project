@@ -8,12 +8,14 @@ const postsEl = document.getElementById("posts");
 const chatActivityEl = document.getElementById("chat-activity");
 
 // Globals
-const namespace = "test";
 let userName = "";
+const geo = "vancouver";
+const community = "test";
+const namespace = `${geo}-${community}`;
 
 // Functions
-const addPost = ({ user, message }) => {
-  const time = new Date();
+const addPost = ({ user, message, date }) => {
+  const time = date ? new Date(date) : new Date();
   const formattedTime = time.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -34,7 +36,8 @@ const addPost = ({ user, message }) => {
   postCardBodyEl.appendChild(cardTitleEl);
   postCardBodyEl.appendChild(postText);
   postCardEl.appendChild(postCardBodyEl);
-  postsEl.appendChild(postCardEl);
+  //postsEl.appendChild(postCardEl);
+  postsEl.prepend(postCardEl);
 };
 
 const createActivitySocket = () => {
@@ -50,7 +53,7 @@ const createActivitySocket = () => {
 };
 
 const createMessageSocket = () => {
-  socket.on("chat message", (data) => {
+  socket.on("wall post", (data) => {
     addPost({
       user: data.nick,
       message: data.message,
@@ -71,6 +74,20 @@ const loginToMessaging = (user) => {
   console.log(`Logged in as: ${userName}`);
 };
 
+const populateWall = () => {
+  fetch(`/api/posts/${namespace}`)
+    .then((res) => res.json())
+    .then((data) => {
+      for (key in data) {
+        addPost({
+          user: data[key].user,
+          message: data[key].message,
+          date: data[key].timestamp,
+        });
+      }
+    });
+};
+
 // Event listeners
 messageButtonEl.addEventListener("click", (event) => {
   event.preventDefault();
@@ -78,7 +95,7 @@ messageButtonEl.addEventListener("click", (event) => {
     return;
   }
 
-  socket.emit("chat message", {
+  socket.emit("wall post", {
     message: messageInputEl.value,
     nick: userName,
     timestamp: new Date(),
@@ -93,3 +110,6 @@ messageInputEl.addEventListener("keyup", () => {
     nick: userName,
   });
 });
+
+// Main
+populateWall();

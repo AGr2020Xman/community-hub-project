@@ -1,6 +1,6 @@
 // Setup Firebase
 const admin = require("firebase-admin");
-const serviceAccount = require("/home/harish/secrets/firebaseAccountKey.json");
+const serviceAccount = require("../../firebaseAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://geoverse-5090b.firebaseio.com",
@@ -26,6 +26,37 @@ module.exports = (app) => {
       docs.forEach((site) => {
         res.render("myPage", site.data());
       });
+    });
+  });
+
+  // Get route for sites by geo and community
+  app.get("/sites/:geo/:community", (req, res) => {
+    const sitesRef = db
+      .collection("sites")
+      .where("geo", "==", req.params.geo)
+      .where("community", "==", req.params.community);
+    sitesRef.get().then((docs) => {
+      const hbsObject = { sites: {} };
+      docs.forEach((site) => {
+        hbsObject.sites[site.id] = {
+          ...site.data(),
+        };
+      });
+      res.render("sites", hbsObject);
+    });
+  });
+
+  // Get route for sites by geo
+  app.get("/sites/:geo", (req, res) => {
+    const sitesRef = db.collection("sites").where("geo", "==", req.params.geo);
+    sitesRef.get().then((docs) => {
+      const hbsObject = { sites: {} };
+      docs.forEach((site) => {
+        hbsObject.sites[site.id] = {
+          ...site.data(),
+        };
+      });
+      res.render("sites", hbsObject);
     });
   });
 

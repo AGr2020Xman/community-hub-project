@@ -1,31 +1,43 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const db = require('../models')
 
-const db = require('../models');
-
-const initialise = (passport, getUserByEmail, getUserById) => {
-    const authenticateUser = async (email, password, done) => {
-        const user = getUserByEmail(email);
-        if (user == null) {
-            return done(null, false, { message: 'No user with that email registered.'})
-        }
-
-        try {
-            if (await bcrypt.compare(password, user.password)) {
-                return done(null, user)
-            } else {
-                return done(null, false, { message: 'Incorrect password'})
+passport.use(new LocalStrategy(
+    { 
+        usernameField: 'email' 
+    }, 
+    async function authenticateUser (email, password, done) {
+        db.User.findOne({
+            where: {
+                email: email
             }
-        } catch (err) {
-            return done(err) 
-        }
-    }
-    passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser))
-
+        }).then(async (user) => {
+            console.log('dbUSER here', user);
+            console.log();
+            if (!user) {
+                return done(null, false, { message: 'No user with that email registered.' });
+            }
+            try {
+                if (await bcrypt.compare(password, user.password)) {
+                    return done(null, user)
+                } else {
+                    return done(null, false, { message: 'Incorrect password'})
+                }
+            } catch (err) {
+                return done(err) 
+            }
+        });
+    })
+    );
+    
     passport.serializeUser((user, done) => done(null, user.id));
     passport.deserializeUser((id, done) => {
-        return done(null, getUserById(id))
-    });
-}
+            return done(null, db.User.findOne({
+                where: {
+                    id: id
+                }
+            }))
+        });
 
-module.exports = initialise
+module.exports = passport

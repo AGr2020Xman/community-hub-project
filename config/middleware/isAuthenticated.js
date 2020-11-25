@@ -3,7 +3,7 @@ const LocalStrategy=require('passport-local');
 
 // configuration: login form
 passport.use(new LocalStrategy(
-    (username,password, done) => {
+    (username, password, done) => {
         User.findOne({ username: username }, (err, user) => {
             if (err) { return done(err); }
             if (!user) {

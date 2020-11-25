@@ -26,7 +26,7 @@ const checkNotAuthenticated = (req, res, next) => {
 app.get('/', checkAuthenticated, async (req, res) => {
   await req.user;
   console.log("Req.USER log", req.user);
-  res.render('index.handlebars', {name: req.user.name})
+  res.render('index.handlebars', {name: req.user.nickname})
 });
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -53,13 +53,19 @@ app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
       nickname: req.body.nickname,
       password: req.body.password,
     }).then(() => {
-      res.redirect(307, '/login')
+      res.status(307)
+      res.redirect('/login')
     })
   } catch (err) {
     if (err) console.log('There was an error signing up user:\n');
     res.status(401).json(err)
     res.redirect('/signup')
   }
+});
+
+app.get("/api/user_data", checkAuthenticated, async (data) => {
+  await data.user;
+  console.log(data.user);
 });
 
 // Route for logging user out

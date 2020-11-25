@@ -16,7 +16,7 @@ const messaging = require("./controllers/messaging/messagingServer");
 
 // Express config
 const app = express();
-const PORT = process.env.PORT || 7001;
+const PORT = process.env.PORT || 3001;
 
 // Setup Handlebars
 const exphbs = require("express-handlebars");

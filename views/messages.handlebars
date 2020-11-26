@@ -9,7 +9,14 @@
     </div>
   </div>
   <div class="col-md-8 msg-cnt">
-    <div class="container my-5">{{> conversation}}</div>
+    <div class="container my-5">
+      {{#if id}}
+      {{> conversation}}
+      {{/if}}
+      {{#if new}}
+      {{> conversation}}
+      {{/if}}
+    </div>
   </div>
 </div>
 <script src="/assets/js/messages.js"></script>

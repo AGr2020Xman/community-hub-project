@@ -9,9 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('express-flash');
 const db = require('./models');
-
 const messaging = require("./controllers/messaging/messagingServer");
-
 
 // Express config
 const app = express();
@@ -39,13 +37,13 @@ app.use(passport.initialize());
 //to persist across session 
 app.use(passport.session());
 
-
 // Routes
-
 require("./controllers/loginpage/authentication")(app);
 require("./controllers/mypages/myPage")(app);
 require("./controllers/testController")(app);
 require("./controllers/static/static")(app);
+require("./controllers/messaging/messagingController")(app);
+app.use(require("./controllers/messaging/messagingApi"));
 
 // // Listener
 // Syncing our database and logging a message to the user upon success
@@ -54,10 +52,6 @@ const server = db.sequelize.sync({ force: false }).then(() => {
     console.log(`Geoverse main server app listening on: ${PORT}`);
   });
 });
-
-// const server = app.listen(PORT, () => {
-//   console.log(`Geoverse main server app listening on: ${PORT}`);
-// });
 
 // Create Geoverse chat server
 messaging(server);

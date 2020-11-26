@@ -1,5 +1,6 @@
 // Dependencies
 const admin = require("firebase-admin");
+const os = require("os");
 
 // Function to decode firebase account key
 const decodeFirebaseKey = () => {
@@ -8,7 +9,11 @@ const decodeFirebaseKey = () => {
       Buffer.from(process.env.FIREBASE_ACCOUNT, "base64").toString("ascii")
     );
   } else {
-    return require(`${process.env["HOME"]}/secrets/firebaseAccountKey.json`);
+    if (os.type() === "Windows_NT") {
+      return require(`${os.homedir()}\\secrets\\firebaseAccountKey.json`);
+    } else {
+      return require(`${process.env["HOME"]}/secrets/firebaseAccountKey.json`);
+    }
   }
 };
 

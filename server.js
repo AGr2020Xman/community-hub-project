@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3001;
 const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set('view-engine', 'handlebars');
+app.set('view engine', 'handlebars');
 
 // Express data handler config
 app.use(express.static("public"));

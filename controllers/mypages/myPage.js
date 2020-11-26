@@ -5,17 +5,18 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://geoverse-5090b.firebaseio.com",
 });
+const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
 const db = admin.firestore();
 
 // Create routes
 module.exports = (app) => {
   // Get route for createMyPage
-  app.get("/sites/:geo/:community/create", (req, res) => {
+  app.get("/sites/:geo/:community/create", checkAuthenticated, (req, res) => {
     res.render("createMyPage", req.params);
   });
 
   // Get route for myPage
-  app.get("/sites/:geo/:community/:name", (req, res) => {
+  app.get("/sites/:geo/:community/:name", checkAuthenticated, (req, res) => {
     const siteRef = db
       .collection("sites")
       .where("geo", "==", req.params.geo)
@@ -30,7 +31,7 @@ module.exports = (app) => {
   });
 
   // Get route for sites by geo and community
-  app.get("/sites/:geo/:community", (req, res) => {
+  app.get("/sites/:geo/:community", checkAuthenticated, (req, res) => {
     const sitesRef = db
       .collection("sites")
       .where("geo", "==", req.params.geo)
@@ -47,7 +48,7 @@ module.exports = (app) => {
   });
 
   // Get route for sites by geo
-  app.get("/sites/:geo", (req, res) => {
+  app.get("/sites/:geo", checkAuthenticated, (req, res) => {
     const sitesRef = db.collection("sites").where("geo", "==", req.params.geo);
     sitesRef.get().then((docs) => {
       const hbsObject = { sites: {} };
@@ -61,7 +62,7 @@ module.exports = (app) => {
   });
 
   // Get route for all sites
-  app.get("/sites", async (req, res) => {
+  app.get("/sites", checkAuthenticated, async (req, res) => {
     const sitesRef = db.collection("sites");
     sitesRef.get().then((docs) => {
       const hbsObject = { sites: {} };
@@ -75,7 +76,7 @@ module.exports = (app) => {
   });
 
   // Post route for site
-  app.post("/api/sites/", async (req, res) => {
+  app.post("/api/sites/", checkAuthenticated, async (req, res) => {
     const pageData = {
       geo: req.body.geo,
       community: req.body.community,

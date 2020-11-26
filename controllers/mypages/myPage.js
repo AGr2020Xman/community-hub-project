@@ -77,7 +77,7 @@ module.exports = (app) => {
   });
 
   // Post route for site
-  app.post("/api/sites/", checkAuthenticated, async (req, res) => {
+  app.post("/api/sites/", async (req, res) => {
     const pageData = {
       geo: req.body.geo,
       community: req.body.community,

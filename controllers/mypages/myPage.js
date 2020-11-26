@@ -1,22 +1,23 @@
 // Setup Firebase
 const admin = require("firebase-admin");
-const serviceAccount = require("../../firebaseAccountKey.json");
+const serviceAccount = require("C:\\Users\\Andre\\secrets\\firebaseAccountKey.json");
+const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://geoverse-5090b.firebaseio.com",
 });
-const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
 const db = admin.firestore();
 
 // Create routes
 module.exports = (app) => {
   // Get route for createMyPage
-  app.get("/sites/:geo/:community/create", checkAuthenticated, (req, res) => {
+  app.get("/sites/:geo/:community/create", (req, res) => {
     res.render("createMyPage", req.params);
   });
 
   // Get route for myPage
-  app.get("/sites/:geo/:community/:name", checkAuthenticated, (req, res) => {
+  app.get("/sites/:geo/:community/:name", (req, res) => {
     const siteRef = db
       .collection("sites")
       .where("geo", "==", req.params.geo)
@@ -31,7 +32,7 @@ module.exports = (app) => {
   });
 
   // Get route for sites by geo and community
-  app.get("/sites/:geo/:community", checkAuthenticated, (req, res) => {
+  app.get("/sites/:geo/:community", (req, res) => {
     const sitesRef = db
       .collection("sites")
       .where("geo", "==", req.params.geo)
@@ -48,7 +49,7 @@ module.exports = (app) => {
   });
 
   // Get route for sites by geo
-  app.get("/sites/:geo", checkAuthenticated, (req, res) => {
+  app.get("/sites/:geo", (req, res) => {
     const sitesRef = db.collection("sites").where("geo", "==", req.params.geo);
     sitesRef.get().then((docs) => {
       const hbsObject = { sites: {} };
@@ -62,7 +63,7 @@ module.exports = (app) => {
   });
 
   // Get route for all sites
-  app.get("/sites", checkAuthenticated, async (req, res) => {
+  app.get("/sites", async (req, res) => {
     const sitesRef = db.collection("sites");
     sitesRef.get().then((docs) => {
       const hbsObject = { sites: {} };

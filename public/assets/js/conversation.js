@@ -3,19 +3,7 @@ let socket = io("/direct");
 
 // Globals
 let userName = "";
-let conversationId;
-if (id) {
-  conversationId = id;
-} else {
-  conversationId = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-    /[xy]/g,
-    (c) => {
-      const r = (Math.random() * 16) | 0,
-        v = c == "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    }
-  );
-}
+const conversationId = id;
 
 // Elements
 const myCustomScrollbarConversation = document.querySelector(

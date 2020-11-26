@@ -24,15 +24,7 @@ const openConversationHandler = (id) => {
   });
 };
 
-const newConversationHandler = () => {
-  window.location.href = "/messages/new";
-};
-
 // Event listener
 inboxEl.addEventListener("click", (event) => {
   openConversationHandler(event.target.closest("[data-id]").dataset.id);
-});
-
-newConversationButtonEl.addEventListener("click", (event) => {
-  newConversationHandler();
 });

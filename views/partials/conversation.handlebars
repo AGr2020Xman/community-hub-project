@@ -2,10 +2,8 @@
     <div class="card">
         <div class="card-header white d-flex justify-content-between">
             <p class="h5-responsive font-weight-bold mb-0">
-                {{#if id}}
-                {{id}}
-                {{else}}
-                New Conversation
+                {{#if conversationid}}
+                {{conversationid}}
                 {{/if}}
             </p>
         </div>
@@ -17,7 +15,7 @@
                 <textarea class="form-control rounded-0" id="message-form-input" rows="1"
                     placeholder="Type message..."></textarea>
                 <div class="text-right pt-2">
-                    <button class="btn btn-primary btn-sm mb-0 mr-0 button-send">Send</button>
+                    <button class="btn btn-primary mb-0 mr-0 button-send">Send</button>
                 </div>
             </div>
         </div>
@@ -25,6 +23,6 @@
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
 <script>
-    const id = "{{id}}"
+    const id = "{{conversationid}}"
 </script>
 <script src="/assets/js/conversation.js"></script>

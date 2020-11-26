@@ -44,7 +44,7 @@ require("./controllers/loginpage/authentication")(app);
 require("./controllers/mypages/myPage")(app);
 require("./controllers/testController")(app);
 require("./controllers/static/static")(app);
-require("./controllers/messaging/messagingController")(app);
+app.use(require("./controllers/messaging/messagingController"));
 app.use(require("./controllers/messaging/messagingApi"));
 
 // // Listener

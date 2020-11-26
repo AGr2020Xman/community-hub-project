@@ -1,19 +1,31 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, Model, NOW } = require('sequelize');
 const bcrypt = require('bcrypt');
+const { now } = require('sequelize/types/lib/utils');
 
-const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
-    host: '127.0.0.1',
-    dialect: 'mysql',
-});
+// const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
+//     host: '127.0.0.1',
+//     dialect: 'mysql',
+// });
 
-sequelize.authenticate().then((err)=>{
-    console.log('Connection Successful');
-}).catch((err)=>{
-    console.log('Unable to connect to db', err);
-})
+// sequelize.authenticate().then((err)=>{
+//     console.log('Connection Successful');
+// }).catch((err)=>{
+//     console.log('Unable to connect to db', err);
+// })
 
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
+
+    class User extends Model {
+        static associate(models) {
+            User.hasMany(models.Page, { as: 'createdPages', onDelete: 'CASCADE' })
+        }
+        // fx to get full name - possible requirement
+        getName() {
+            return firstName + " " + lastName;
+        }
+    }
+    User.init(
+        {
         firstName: {
             type: DataTypes.TEXT,
             allowNull: false,
@@ -57,17 +69,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
             unique: true
-        }
+        },
     },
     {
-        sequelize,
         hooks: {
             beforeCreate: async (user, options) => {
                 user.password = await bcrypt.hash(user.password, 10, null);
                 console.log('should be hashed', user.password);
             }
         },
+        sequelize,
         modelName: 'User',
-    });
+    }
+    );
     return User
   };

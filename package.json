@@ -16,6 +16,7 @@
     "jest": "^26.6.3",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.6",
+    "os": "^0.1.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sequelize": "^6.3.5",
@@ -25,10 +26,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node -r esm server.js",
-    "lint": "eslint src/** -q",
-    "test": "jest && npm run lint",
-    "watch": "nodemon server.js"
+    "lint": "eslint --fix .",
+    "test": "jest && eslint --quiet .",
+    "start": "node server.js",
+    "watch": "nodemon ./server.js"
   },
   "repository": {
     "type": "git",

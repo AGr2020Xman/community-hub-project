@@ -27,11 +27,11 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 </head>
 
-<body>
+<body class = "warm-flame-gradient">
     <!--Main Navigation-->
     <header>
 			<!-- Sidebar navigation -->
-			<div id="slide-out" class="side-nav sn-bg-4 fixed">
+			{{!-- <div id="slide-out" class="side-nav sn-bg-4 fixed">
 				<ul class="custom-scrollbar">
 					<!-- Logo -->
 					<li>
@@ -157,25 +157,23 @@
 					<!--/. Side navigation links -->
 				</ul>
 				<div class="sidenav-bg mask-strong"></div>
-			</div>
+			</div> --}}
 			<!--/. Sidebar navigation -->
 			<!-- Navbar -->
 			<nav
-				class="navbar fixed-top navbar-toggleable-md navbar-expand-lg double-nav"
+				class="navbar fixed-top navbar-toggleable-md navbar-expand-lg double-nav young-passion-gradient"
 			>
-				<!-- SideNav slide-out button -->
-				<div class="float-left">
-					<a href="#" data-activates="slide-out" class="button-collapse"
-						><i class="fa fa-bars"></i
-					></a>
-				</div>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+		aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 				<!-- Breadcrumb-->
-				<div class="breadcrumb-dn mr-auto">
-					<p>
+				<div class="navbar-brand">
+				
 						Geoverse - the site that has all the goss in your neck of the woods!
-					</p>
+					
 				</div>
-				<ul class="nav navbar-nav nav-flex-icons ml-auto">
+				{{!-- <ul class="nav navbar-nav nav-flex-icons ml-auto">
 					<li class="nav-item">
 						<a class="nav-link"
 							><i class="fa fa-envelope"></i>
@@ -214,13 +212,14 @@
 							<a class="dropdown-item" href="#">Something else here</a>
 						</div>
 					</li>
-				</ul>
+				</ul> --}}
 			</nav>
 			<!-- /.Navbar -->
 		</header>
     <!--Main Navigation-->
-    <div class="container-fluid pt-5">
+    
         {{{ body }}}
+		
     </div>
 </body>
 

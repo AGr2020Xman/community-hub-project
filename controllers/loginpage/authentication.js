@@ -1,27 +1,11 @@
 const express = require('express');
 const passport = require('../../config/passport-config');
-const bcrypt = require('bcrypt');
 const db = require('../../models');
+const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
 
 const app = express();
 
 module.exports = (app) => {
-
-
-// middleware
-const checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-      return next();
-  }
-  res.redirect('/login');
-}
-
-const checkNotAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-      return res.redirect('/');
-  }
-  next();
-}
 
 app.get('/', checkAuthenticated, async (req, res) => {
   await req.user;

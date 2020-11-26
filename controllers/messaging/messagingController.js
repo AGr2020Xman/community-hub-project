@@ -3,13 +3,9 @@ module.exports = (app) => {
     res.render("messages");
   });
 
-  app.get("/messages/new", (req, res) => {
-    res.render("messages", { new: "new" });
-  });
-
   app.get("/messages/:id", (req, res) => {
-    if (req.params === "new") {
-      res.render("messages");
+    if (req.params.id === "new") {
+      res.render("messages", { new: "new" });
     } else {
       res.render("messages", {
         id: req.params.id,

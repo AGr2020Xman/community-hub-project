@@ -2,6 +2,7 @@
 
 // Elements
 const inboxEl = document.querySelector(".inbox");
+const newConversationButtonEl = document.querySelector(".new-conversation");
 // const myCustomScrollbarInbox = document.querySelector(
 //   ".my-custom-scrollbar-inbox"
 // );
@@ -17,7 +18,21 @@ const inboxEl = document.querySelector(".inbox");
 //   }px!important; height: 250px; right: ${-this.scrollLeft}px`;
 // };
 
+const openConversationHandler = (id) => {
+  fetch(`/messages/${id}`).then(() => {
+    window.location.href = `/messages/${id}`;
+  });
+};
+
+const newConversationHandler = () => {
+  window.location.href = "/messages/new";
+};
+
 // Event listener
 inboxEl.addEventListener("click", (event) => {
-  console.log(event.target.closest("[data-id]").dataset.id);
+  openConversationHandler(event.target.closest("[data-id]").dataset.id);
+});
+
+newConversationButtonEl.addEventListener("click", (event) => {
+  newConversationHandler();
 });

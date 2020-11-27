@@ -2,3 +2,4 @@ node_modules
 firebaseAccountKey.json
 .DS_Store
 
+.env

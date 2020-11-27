@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
     class Geo extends Model {
         static associate(models) {
-            Geo.hasMany(models.Community, { as: 'communities', onDelete: ''})
+            Geo.hasMany(models.Community, { as: 'communities', onDelete: 'CASCADE' })
         }
     }
     Geo.init(

@@ -1,6 +1,5 @@
 const { Sequelize, Model, NOW } = require('sequelize');
 const bcrypt = require('bcrypt');
-const { now } = require('sequelize/types/lib/utils');
 
 // const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
 //     host: '127.0.0.1',
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
     class User extends Model {
         static associate(models) {
-            User.hasMany(models.Page, { as: 'createdPages', onDelete: 'CASCADE' })
+            User.hasMany(models.myPage, { as: 'createdPages', onDelete: 'CASCADE' })
         }
         // fx to get full name - possible requirement
         getName() {

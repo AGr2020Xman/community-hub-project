@@ -14,13 +14,8 @@ const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
 
-    class Page extends Model {
-        static associate(models) {
-            Page.belongsTo(models.User, { as: 'creator', onDelete: 'CASCADE' }),
-            Page.belongsTo(models.Community, { as: 'availablePages', onDelete: 'CASCADE' })
-        }
-    }
-    Page.init(
+    class myPage extends Model {}
+    myPage.init(
         {
            myPage: {
                type: DataTypes.UUID,
@@ -39,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         {
             hooks: {},
             sequelize,
-            modelName: 'Page',
+            modelName: 'myPage',
         }
     );
-    return Page
+    return myPage
   };

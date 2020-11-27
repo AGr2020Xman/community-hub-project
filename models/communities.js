@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
     class Community extends Model {
         static associate(models) {
-            Community.hasMany(models.Page)
+            Community.hasMany(models.myPage)
         }
     }
     Community.init(

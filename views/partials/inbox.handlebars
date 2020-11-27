@@ -1,4 +1,37 @@
 <section>
+    <div class="modal fade" id="modal-new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">New message</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix grey-text"></i>
+                        <input type="text" id="recipient-nick" class="form-control validate" />
+                        <label data-error="wrong" data-success="right" for="recipient-nick">Recipient nickname</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fas fa-pencil prefix grey-text"></i>
+                        <textarea type="text" id="new-message-text" class="md-textarea form-control"
+                            rows="4"></textarea>
+                        <label data-error="wrong" data-success="right" for="new-message-text">Your message</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button id="new-send-button" class="btn btn-primary">
+                        Send <i class="fas fa-paper-plane-o ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header white d-flex justify-content-between">
             <p class="h5-responsive font-weight-bold mb-0">Conversations</p>
@@ -27,7 +60,8 @@
             </div>
         </div>
         <div class="card-footer white py-3">
-            <button class="btn btn-primary btn-sm mb-0 mr-0">New Conversation</button>
+            <a href="" class="btn btn-primary mb-0 mr-0 new-conversation" data-toggle="modal"
+                data-target="#modal-new-message">New Conversation</a>
         </div>
     </div>
 </section>

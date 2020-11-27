@@ -3,7 +3,7 @@ let socket = io("/direct");
 
 // Globals
 let userName = "";
-const conversationId = "test";
+const conversationId = id;
 
 // Elements
 const myCustomScrollbarConversation = document.querySelector(

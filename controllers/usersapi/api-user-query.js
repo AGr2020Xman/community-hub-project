@@ -2,8 +2,7 @@ const db = require('../../models');
 const { QueryTypes, Op, Sequelize} = require('sequelize');
 
 const caseType = (query) => {
-    console.log('casetype',query);
-    if (('name' in query) === true) {
+    if ('name' in query) {
         return 0;
     } else if ('partial' in query) {
         return 1;
@@ -23,9 +22,9 @@ const typeOfQueryData = async (req, res) => {
     const trimSearch = (Object.values(query)[0]).trim();
     const searchTerm = trimSearch
     console.log('inside this function');
-    console.log(query);
-    switch (query) {
-        case caseType(query):
+    console.log(caseType(query));
+    switch (caseType(query)) {
+        case 0:
             queryResult = await db.User.findAll({
                 attributes: ['fullName'],
                 where: {

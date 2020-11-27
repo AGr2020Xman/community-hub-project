@@ -47,9 +47,14 @@ app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
   }
 });
 
-app.get("/api/user_data", checkAuthenticated, async (data) => {
-  await data.user;
-  console.log(data.user);
+app.get("/api/user_data", checkAuthenticated, async (req, res) => {
+  const objectRef = await req.user;
+  const desiredData = {
+    displayName: objectRef.firstName + " " + objectRef.lastName,
+    nickname: objectRef.nickname,
+    uniqueIdentifier: objectRef.uniqueIdentifier
+  }
+  return res.json(desiredData);
 });
 
 // Route for logging user out

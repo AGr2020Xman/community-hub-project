@@ -1,0 +1,6 @@
+SESSION_SECRET='my_secret'
+DB_HOSTNAME=localhost
+DB_USERNAME=root
+DB_PASSWORD=my_password
+DB_NAME=my_database_name
+DB_PORT=3306

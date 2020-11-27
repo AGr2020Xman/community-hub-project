@@ -14,8 +14,7 @@ passport.use(new LocalStrategy(
             }
         }).then(async (user) => {
             console.log('dbUSER here', user);
-            console.log();
-            if (!user) {
+            if (!user || typeof user === 'null') {
                 return done(null, false, { message: 'No user with that email registered.' });
             }
             try {

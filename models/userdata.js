@@ -19,9 +19,6 @@ module.exports = (sequelize, DataTypes) => {
             User.hasMany(models.myPage, { as: 'createdPages', onDelete: 'CASCADE' })
         }
         // fx to get full name - possible requirement
-        getName() {
-            return firstName + " " + lastName;
-        }
     }
     User.init(
         {
@@ -29,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
-                is: /^[a-z]+$/i,
+                is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
                 max: 25
             }
         },
@@ -37,9 +34,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
-                is: /^[a-z]+$/i,
+                is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
                 max: 25
             }
+        },
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         email: {
             type: DataTypes.STRING,
@@ -74,8 +75,8 @@ module.exports = (sequelize, DataTypes) => {
         hooks: {
             beforeCreate: async (user, options) => {
                 user.password = await bcrypt.hash(user.password, 10, null);
-                console.log('should be hashed', user.password);
-            }
+                user.fullName = user.firstName + ' ' + user.lastName
+            },
         },
         sequelize,
         modelName: 'User',

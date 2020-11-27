@@ -12,18 +12,19 @@
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
-                        <input type="text" id="form34" class="form-control validate" />
-                        <label data-error="wrong" data-success="right" for="form34">Recipient nickname</label>
+                        <input type="text" id="recipient-nick" class="form-control validate" />
+                        <label data-error="wrong" data-success="right" for="recipient-nick">Recipient nickname</label>
                     </div>
 
                     <div class="md-form">
                         <i class="fas fa-pencil prefix grey-text"></i>
-                        <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-                        <label data-error="wrong" data-success="right" for="form8">Your message</label>
+                        <textarea type="text" id="new-message-text" class="md-textarea form-control"
+                            rows="4"></textarea>
+                        <label data-error="wrong" data-success="right" for="new-message-text">Your message</label>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-primary">
+                    <button id="new-send-button" class="btn btn-primary">
                         Send <i class="fas fa-paper-plane-o ml-1"></i>
                     </button>
                 </div>

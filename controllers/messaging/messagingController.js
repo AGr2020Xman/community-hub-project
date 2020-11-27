@@ -13,4 +13,9 @@ router.get("/messages/:conversationid", (req, res) => {
   });
 });
 
+router.post("/api/messages/", (req, res) => {
+  console.log(req.body);
+  res.json(req.body);
+});
+
 module.exports = router;

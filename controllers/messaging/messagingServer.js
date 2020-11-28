@@ -1,5 +1,8 @@
 const socket = require("socket.io");
 
+// Setup Firebase
+const db = require("../../config/initFirebase");
+
 // Socket setup
 const createServer = (server) => {
   const io = socket(server);
@@ -25,14 +28,32 @@ const createServer = (server) => {
       io.of(namespace).emit("user disconnected", socket.userId);
     });
 
-    socket.on("chat message", (data) => {
-      io.of(namespace).emit("chat message", data);
-      console.log(data);
+    socket.on("wall post", async (data) => {
+      io.of(namespace).emit("wall post", data);
+      const postData = {
+        namespace: namespace,
+        user: data.nick,
+        timestamp: data.timestamp,
+        message: data.message,
+      };
+      console.log(postData);
+      await db.collection("posts").add(postData);
     });
 
-    socket.on("direct message", (data) => {
+    socket.on("direct message", async (data) => {
       io.of(namespace).to(data.id).emit("direct message", data);
       console.log("Direct Message", data);
+      const messsageObj = {
+        conversationId: data.id,
+        from: data.nick,
+        timestamp: data.timestamp,
+        text: data.message,
+      };
+      await db
+        .collection("conversations")
+        .doc(data.id)
+        .collection("messages")
+        .add(messsageObj);
     });
 
     socket.on("typing", (data) => {
@@ -47,7 +68,7 @@ const createServer = (server) => {
   });
 
   // import communities
-  const communities = ["test"];
+  const communities = ["vancouver-test"];
 
   // Create a namespace for each community
   communities.forEach((communityNamespace) => {

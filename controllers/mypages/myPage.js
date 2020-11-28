@@ -1,11 +1,7 @@
 // Setup Firebase
-const admin = require("firebase-admin");
-const serviceAccount = require("../../firebaseAccountKey.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://geoverse-5090b.firebaseio.com",
-});
-const db = admin.firestore();
+const db = require('../../config/initFirebase');
+
+const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
 
 // Create routes
 module.exports = (app) => {

@@ -1,0 +1,19 @@
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js"></script>
+<link rel="stylesheet" href="/assets/css/messages.css" />
+
+<div class="row">
+  <div class="col-md-4 inbox-cnt">
+    <div class="container my-5">
+      {{> inbox}}
+    </div>
+  </div>
+  <div class="col-md-8 msg-cnt">
+    <div class="container my-5">
+      {{#if conversationid}}
+      {{> conversation}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+<script src="/assets/js/messages.js"></script>

@@ -1,4 +1,5 @@
 // Globals
+let selfUserInfo = "1d6bf09a-4b99-498f-af74-af694f342723";
 
 // Elements
 const inboxEl = document.querySelector(".inbox");
@@ -22,10 +23,21 @@ const newSendButtonEl = document.getElementById("new-send-button");
 // };
 
 // Functions
-const newMessageHandler = (recipient, messageText) => {
-  const message = {
-    recipient: recipient,
-    messageText: messageText,
+const getSelfUserInfo = async () => {
+  fetch("/api/user_data")
+    .then((res) => res.json())
+    .then((data) => {
+      selfUserInfo = data;
+      console.log(data);
+    });
+};
+
+const newMessageHandler = async (recipient, messageText) => {
+  const messageData = {
+    from: selfUserInfo.uniqueIdentifier,
+    to: recipient,
+    timestamp: new Date(),
+    text: messageText,
   };
 
   fetch("/api/messages", {
@@ -33,11 +45,12 @@ const newMessageHandler = (recipient, messageText) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(message),
+    body: JSON.stringify(messageData),
   })
     .then((res) => res.json())
     .then((data) => {
       console.log("Success:", data);
+      window.location.reload();
     })
     .catch((err) => {
       console.error("Error:", err);
@@ -60,3 +73,6 @@ newSendButtonEl.addEventListener("click", () => {
   const message = newMessageInputEl.value;
   newMessageHandler(recipient, message);
 });
+
+// Init
+//getSelfUserInfo();

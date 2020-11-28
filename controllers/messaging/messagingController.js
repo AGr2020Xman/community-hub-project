@@ -60,8 +60,8 @@ router.get("/messages/:conversationid", (req, res) => {
 });
 
 router.get("/api/messages", async (req, res) => {
-  if (req.query.headers && req.body.originId) {
-    const headers = await getMessageHeaders(req.body.originId);
+  if (req.query.headers && req.query.originId) {
+    const headers = await getMessageHeaders(req.query.originId);
     res.json(headers);
   } else {
     console.log("returning top 20 messages");

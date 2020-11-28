@@ -2,7 +2,7 @@
 let socket = io("/direct");
 
 // Globals
-let userName = "";
+let userName = "1d6bf09a-4b99-498f-af74-af694f342723";
 const conversationId = id;
 
 // Elements
@@ -26,7 +26,7 @@ myCustomScrollbarConversation.onscroll = function () {
 
 // Functions
 const newUserConnected = (user) => {
-  userName = user || `User${Math.floor(Math.random() * 1000000)}`;
+  //userName = user || `User${Math.floor(Math.random() * 1000000)}`;
   socket.emit("new user", userName);
 };
 
@@ -127,6 +127,23 @@ const addReceivedMessage = (message) => {
   conversationBodyEl.appendChild(mediaEl);
 };
 
+const populateMessages = () => {
+  fetch(`/api/messages/${conversationId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      for (key in data) {
+        const message = {
+          user: data[key].from,
+          message: data[key].text,
+          timestamp: data[key].timestamp,
+        };
+        message.user === userName
+          ? addSentMessage(message)
+          : addReceivedMessage(message);
+      }
+    });
+};
+
 // Event listener
 sendButtonEl.addEventListener("click", (event) => {
   event.preventDefault();
@@ -161,3 +178,6 @@ socket.on("direct message", (data) => {
   //   timestamp: data.timestamp
   // });
 });
+
+// Main
+populateMessages();

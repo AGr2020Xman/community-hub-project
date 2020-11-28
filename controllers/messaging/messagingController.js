@@ -48,6 +48,19 @@ const getMessageHeaders = async (originId) => {
   return headers;
 };
 
+const getConversation = async (id) => {
+  const conversationsRef = db
+    .collection("conversations")
+    .doc(id)
+    .collection("messages");
+  const messages = [];
+  const convSnapshot = await conversationsRef.orderBy("timestamp").get();
+  for (const message of convSnapshot.docs) {
+    messages.push(message.data());
+  }
+  return messages;
+};
+
 // Direct messaging routes
 router.get("/messages", (req, res) => {
   res.render("messages");
@@ -59,12 +72,15 @@ router.get("/messages/:conversationid", (req, res) => {
   });
 });
 
+router.get("/api/messages/:conversationid", async (req, res) => {
+  const conversation = await getConversation(req.params.conversationid);
+  res.json(conversation);
+});
+
 router.get("/api/messages", async (req, res) => {
   if (req.query.headers && req.query.originId) {
     const headers = await getMessageHeaders(req.query.originId);
     res.json(headers);
-  } else {
-    console.log("returning top 20 messages");
   }
 });
 

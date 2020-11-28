@@ -39,6 +39,49 @@ const typeOfQueryData = async (req, res) => {
             }
             res.json(results)
             break;
+        case 1:
+            queryResult = await db.User.findAll({
+                attributes: ['fullName'],
+                where: {
+                    fullName: {
+                        [Op.substring]: [`${searchTerm}`]
+                    }
+                },
+                raw: true
+            })
+            results = {
+                searchResult: queryResult
+            }
+            res.json(results)
+            break;
+        case 2:
+            queryResult = await db.User.findAll({
+                attributes: ['uniqueIdentifier'],
+                where: {
+                    uniqueIdentifier: [`${searchTerm}`]
+                },
+                raw: true
+            })
+            results = {
+                searchResult: queryResult
+            }
+            res.json(results)
+            break;
+        case 3:
+            queryResult = await db.User.findAll({
+                attributes: ['nickname'],
+                where: {
+                    nickname: {
+                        [Op.like]: [`%${searchTerm}`]
+                    }
+                },
+                raw: true
+            })
+            results = {
+                searchResult: queryResult
+            }
+            res.json(results)
+            break;
             default: 
             return;
         }

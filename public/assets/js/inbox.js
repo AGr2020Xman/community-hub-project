@@ -34,7 +34,7 @@ const getSelfUserInfo = async () => {
 
 const newMessageHandler = async (recipient, messageText) => {
   const messageData = {
-    from: selfUserInfo.uniqueIdentifier,
+    from: selfUserInfo.nickname,
     to: recipient,
     timestamp: new Date(),
     text: messageText,
@@ -124,7 +124,7 @@ const populateHeaders = (headers) => {
 const getHeaders = async () => {
   const params = new URLSearchParams({
     headers: "true",
-    originId: selfUserInfo,
+    originId: selfUserInfo.nickname,
   });
   const url = `/api/messages?${params.toString()}`;
   return fetch(url)
@@ -135,8 +135,7 @@ const getHeaders = async () => {
 };
 
 const init = async () => {
-  selfUserInfo = await getSelfUserInfo().uniqueIdentifier;
-  selfUserInfo = "1d6bf09a-4b99-498f-af74-af694f342723";
+  selfUserInfo = await getSelfUserInfo();
   const headers = await getHeaders();
   populateHeaders(headers);
 };

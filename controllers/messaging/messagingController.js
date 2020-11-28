@@ -62,11 +62,11 @@ const getConversation = async (id) => {
 };
 
 // Direct messaging routes
-router.get("/messages", (req, res) => {
+router.get("/messages", checkAuthenticated, (req, res) => {
   res.render("messages");
 });
 
-router.get("/messages/:conversationid", (req, res) => {
+router.get("/messages/:conversationid", checkAuthenticated, (req, res) => {
   res.render("messages", {
     conversationid: req.params.conversationid,
   });

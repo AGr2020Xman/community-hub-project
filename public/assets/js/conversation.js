@@ -2,7 +2,7 @@
 let socket = io("/direct");
 
 // Globals
-let userName = "1d6bf09a-4b99-498f-af74-af694f342723";
+let selfUserInfoAlt;
 const conversationId = id;
 
 // Elements
@@ -25,13 +25,33 @@ myCustomScrollbarConversation.onscroll = function () {
 };
 
 // Functions
-const newUserConnected = (user) => {
+const getSelfUserInfoAlt = async () => {
+  return fetch("/api/user_data")
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+};
+
+const newUserConnected = async (user) => {
   //userName = user || `User${Math.floor(Math.random() * 1000000)}`;
-  socket.emit("new user", userName);
+  //socket.emit("new user", selfUserInfoAlt.nickname);
 };
 
 const addNewMessage = ({ user, message }) => {
   console.log({ user, message });
+};
+
+const formatTime = (date) => {
+  const time = new Date(date);
+  const formattedTime = time.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    month: "numeric",
+    day: "numeric",
+    year: "numeric",
+  });
+  return formattedTime;
 };
 
 const addSentMessage = (message) => {
@@ -44,7 +64,7 @@ const addSentMessage = (message) => {
   messageHeaderEl.classList.add("mt-0", "font-weight-bold", "small", "mb-1");
   const timestampEl = document.createElement("span");
   timestampEl.classList.add("text-muted", "small", "mt-3p");
-  timestampEl.textContent = message.timestamp;
+  timestampEl.textContent = formatTime(message.timestamp);
   messageHeaderEl.appendChild(timestampEl);
   const userEl = document.createElement("span");
   userEl.classList.add("float-right");
@@ -108,7 +128,7 @@ const addReceivedMessage = (message) => {
   messageHeaderEl.textContent = message.user;
   const timestampEl = document.createElement("span");
   timestampEl.classList.add("text-muted", "float-right", "small", "mt-3p");
-  timestampEl.textContent = message.timestamp;
+  timestampEl.textContent = formatTime(message.timestamp);
   messageHeaderEl.appendChild(timestampEl);
   mediaBodyEl.appendChild(messageHeaderEl);
   const messageEl = document.createElement("p");
@@ -137,7 +157,7 @@ const populateMessages = () => {
           message: data[key].text,
           timestamp: data[key].timestamp,
         };
-        message.user === userName
+        message.user === selfUserInfo.nickname
           ? addSentMessage(message)
           : addReceivedMessage(message);
       }
@@ -152,7 +172,7 @@ sendButtonEl.addEventListener("click", (event) => {
   }
   socket.emit("direct message", {
     message: messageFormInputEl.value,
-    nick: userName,
+    nick: selfUserInfoAlt.nickname,
     timestamp: new Date(),
     id: conversationId,
   });
@@ -161,6 +181,13 @@ sendButtonEl.addEventListener("click", (event) => {
 });
 
 // Init conversation room
+const initConversation = async () => {
+  selfUserInfoAlt = await getSelfUserInfoAlt();
+  populateMessages();
+};
+
+// Main
+initConversation();
 newUserConnected();
 socket.emit("direct", conversationId);
 socket.on("direct message", (data) => {
@@ -169,7 +196,7 @@ socket.on("direct message", (data) => {
     message: data.message,
     timestamp: data.timestamp,
   };
-  message.user === userName
+  message.user === selfUserInfoAlt.nickname
     ? addSentMessage(message)
     : addReceivedMessage(message);
   // addNewMessage({
@@ -178,6 +205,3 @@ socket.on("direct message", (data) => {
   //   timestamp: data.timestamp
   // });
 });
-
-// Main
-populateMessages();

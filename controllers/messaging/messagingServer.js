@@ -40,9 +40,20 @@ const createServer = (server) => {
       await db.collection("posts").add(postData);
     });
 
-    socket.on("direct message", (data) => {
+    socket.on("direct message", async (data) => {
       io.of(namespace).to(data.id).emit("direct message", data);
       console.log("Direct Message", data);
+      const messsageObj = {
+        conversationId: data.id,
+        from: data.nick,
+        timestamp: data.timestamp,
+        text: data.message,
+      };
+      await db
+        .collection("conversations")
+        .doc(data.id)
+        .collection("messages")
+        .add(messsageObj);
     });
 
     socket.on("typing", (data) => {

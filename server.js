@@ -12,7 +12,7 @@ const app = require('./src/app');
 // // Listener
 // Syncing our database and logging a message to the user upon success
 db.sequelize
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     return app.listen(PORT, () => {
       console.log(`Geoverse main server app listening on: https://localhost:${PORT}`);

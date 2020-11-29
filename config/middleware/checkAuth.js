@@ -2,17 +2,17 @@ const passport = require('../../config/passport-config');
 
 // middleware
 const checkAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
+  if (req.isAuthenticated()) {
+    return next();
   }
-  
-  const checkNotAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return res.redirect('/');
-    }
-    next();
+  res.redirect('/login');
+};
+
+const checkNotAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
   }
-  
-  module.exports = { checkAuthenticated, checkNotAuthenticated }
+  next();
+};
+
+module.exports = { checkAuthenticated, checkNotAuthenticated };

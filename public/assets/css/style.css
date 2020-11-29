@@ -11,6 +11,22 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
+.home-dropdown {
+  background-color: transparent;
+}
+
+.home-dropdown .dropdown-item:hover {
+  background-color: transparent !important;
+}
+
+.navbar .home-dropdown a:not(.active) {
+  color: white;
+}
+
+.navbar .home-dropdown a:not(.active) {
+  color: white;
+}
+
 .default-main {
   margin-top: 100px;
 }

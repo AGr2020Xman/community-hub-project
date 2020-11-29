@@ -20,3 +20,29 @@ $(document).ready(function () {
     $('.active-user').text(data.nickname);
   });
 });
+
+// Globals
+let userData;
+
+// Elements
+const homeDropDownEl = document.querySelector('.home-dropdown');
+
+// Functions
+const renderLoginMenu = () => {
+  homeDropDownEl.innerHTML = '';
+  const logoutEl = document.createElement('a');
+  logoutEl.classList.add('dropdown-item');
+  logoutEl.setAttribute('href', '/logout');
+  logoutEl.textContent = 'Logout';
+  homeDropDownEl.appendChild(logoutEl);
+};
+
+const init = async () => {
+  userData = await checkAuth();
+  if (userData) {
+    renderLoginMenu();
+  }
+};
+
+// Init
+init();

@@ -1,6 +1,4 @@
-const { Sequelize, Model } = require('sequelize');
-const bcrypt = require('bcrypt');
-const communities = require('./communities');
+const { Model } = require('sequelize');
 
 // const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
 //     host: '127.0.0.1',
@@ -14,26 +12,25 @@ const communities = require('./communities');
 // })
 
 module.exports = (sequelize, DataTypes) => {
-
-    class Geo extends Model {
-        static associate(models) {
-            Geo.hasMany(models.Community)
-        }
+  class Geo extends Model {
+    static associate(models) {
+      Geo.hasMany(models.Community, { foreignKey: 'communityId', as: 'communities' });
     }
-    Geo.init(
-        {
-            name: {
-                type: DataTypes.STRING,
-                max: 50,
-                unique: true,
-                allowNull: false,
-            },
-        },
+  }
+  Geo.init(
     {
-        hooks: {},
-        sequelize,
-        modelName: 'Geo',
+      name: {
+        type: DataTypes.STRING,
+        max: 50,
+        unique: true,
+        allowNull: false,
+      },
+    },
+    {
+      hooks: {},
+      sequelize,
+      modelName: 'Geo',
     }
-    );
-    return Geo;
-  };
+  );
+  return Geo;
+};

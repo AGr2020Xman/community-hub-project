@@ -27,7 +27,7 @@ const typeOfQueryData = async (req, res) => {
                 attributes: ['fullName'],
                 where: {
                     fullName: {
-                        [Op.like]: [`%${searchTerm}`]
+                        [Op.like]: [`%${searchTerm}%`]
                     }
                 },
                 raw: true

@@ -15,16 +15,7 @@ const myCustomScrollbarConversation = document.querySelector('.my-custom-scrollb
 const sendButtonEl = document.querySelector('.button-send');
 const messageFormInputEl = document.getElementById('message-form-input');
 const conversationBodyEl = document.querySelector('.conversation-body');
-
-// Perfect scrollbar init
-const psConversation = new PerfectScrollbar(myCustomScrollbarConversation);
-const scrollbarY = myCustomScrollbarConversation.querySelector(
-  '.ps.ps--active-y>.ps__scrollbar-y-rail'
-);
-myCustomScrollbarConversation.onscroll = function () {
-  scrollbarY.style.cssText = `top: ${this.scrollTop}px!important; height: 250px; right: ${-this
-    .scrollLeft}px`;
-};
+const chatActivityEl = document.getElementById('chat-activity');
 
 // Functions
 const getSelfUserInfoAlt = async () => {
@@ -40,6 +31,8 @@ const newUserConnected = async (user) => {
   //userName = user || `User${Math.floor(Math.random() * 1000000)}`;
   //socket.emit("new user", selfUserInfoAlt.nickname);
 };
+
+const createActivitySocket = () => {};
 
 const addNewMessage = ({ user, message }) => {
   console.log({ user, message });
@@ -178,6 +171,13 @@ sendButtonEl.addEventListener('click', (event) => {
   messageFormInputEl.value = '';
 });
 
+messageFormInputEl.addEventListener('keyup', () => {
+  socket.emit('typing', {
+    isTyping: messageFormInputEl.value.length > 0,
+    nick: selfUserInfoAlt.nickname,
+  });
+});
+
 // Init conversation room
 const initConversation = async () => {
   selfUserInfoAlt = await getSelfUserInfoAlt();
@@ -203,4 +203,14 @@ socket.on('direct message', (data) => {
   // });
 
   /* eslint-enable */
+});
+
+socket.on('typing', (data) => {
+  const { isTyping, nick } = data;
+
+  if (!isTyping) {
+    chatActivityEl.textContent = '';
+    return;
+  }
+  chatActivityEl.textContent = `${nick} is typing...`;
 });

@@ -81,9 +81,8 @@ router.get('/api/messages', async (req, res) => {
 });
 
 router.post('/api/messages/', (req, res) => {
-  console.log(req.body);
   const participants = [req.body.from, req.body.to];
-  //createNewConversation(participants, req.body);
+  createNewConversation(participants, req.body);
   res.json(req.body);
 });
 

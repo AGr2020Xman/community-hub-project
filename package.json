@@ -46,7 +46,7 @@
       "/node_modules"
     ],
     "transform": {
-      "^.\\.handlebars$": "handlebars-jest"
+      "^.\\.handlebars$": "<rootDir>/node_modules/jest-handlebars"
     }
   },
   "scripts": {

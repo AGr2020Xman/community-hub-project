@@ -1,7 +1,9 @@
 // Setup Firebase
 const db = require('../../config/initFirebase');
 
+/* eslint-disable */
 const { checkAuthenticated } = require('../../config/middleware/checkAuth');
+/* eslint-enable */
 
 // Create routes
 module.exports = (app) => {

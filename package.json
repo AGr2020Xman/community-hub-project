@@ -35,13 +35,23 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.0.0",
     "jest": "^26.6.3",
+    "jest-handlebars": "^1.0.1",
     "prettier": "^2.2.1",
     "superagent": "^6.1.0",
     "supertest": "^6.0.1"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules"
+    ],
+    "transform": {
+      "^.\\.handlebars$": "handlebars-jest"
+  }
+  },
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "jest --verbose false && eslint --quiet .",
+    "test": "jest --verbose && eslint --quiet .",
     "start": "node server.js",
     "watch": "nodemon ./server.js"
   },

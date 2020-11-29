@@ -1,7 +1,6 @@
 /* eslint-env browser */
 
 // Globals
-// let selfUserInfo = "1d6bf09a-4b99-498f-af74-af694f342723";
 let msgUserInfo;
 
 // Elements
@@ -9,21 +8,6 @@ const inboxEl = document.querySelector('.inbox');
 const recipientInputEl = document.getElementById('recipient-nick');
 const newMessageInputEl = document.getElementById('new-message-text');
 const newSendButtonEl = document.getElementById('new-send-button');
-
-// const myCustomScrollbarInbox = document.querySelector(
-//   ".my-custom-scrollbar-inbox"
-// );
-
-// Perfect scrollbar init
-// const psInbox = new PerfectScrollbar(myCustomScrollbarInbox);
-// const scrollbarY = myCustomScrollbarInbox.querySelector(
-//   ".ps.ps--active-y>.ps__scrollbar-y-rail"
-// );
-// myCustomScrollbarInbox.onscroll = function () {
-//   scrollbarY.style.cssText = `top: ${
-//     this.scrollTop
-//   }px!important; height: 250px; right: ${-this.scrollLeft}px`;
-// };
 
 // Functions
 const getMsgUserInfo = async () => {

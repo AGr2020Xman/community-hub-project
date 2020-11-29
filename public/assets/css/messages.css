@@ -25,3 +25,14 @@
 .conversation {
   padding-bottom: 10px;
 }
+
+.chat-activity {
+  color: rgba(84, 110, 122, 1);
+  font-size: 0.75rem;
+}
+
+.conversation-body,
+.inbox {
+  max-height: 65vh;
+  overflow-y: scroll;
+}

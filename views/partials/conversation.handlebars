@@ -5,20 +5,26 @@
                 Direct Message
             </p>
         </div>
-        <div class="card-body my-custom-scrollbar-conversation conversation-body">
+        <div class="card-body conversation-body">
 
         </div>
         <div class="card-footer white py-3">
             <div class="form-group mb-0 message-form">
                 <textarea class="form-control rounded-0" id="message-form-input" rows="1"
                     placeholder="Type message..."></textarea>
-                <div class="text-right pt-2">
-                    <button class="btn btn-primary mb-0 mr-0 button-send">Send</button>
+                <div class="row">
+                    <div class="col-sm-8 pt-2">
+                        <p class="chat-activity" id="chat-activity"></p>
+                    </div>
+                    <div class="col-sm-4 pt-2 text-right">
+                        <button class="btn btn-primary mb-0 mr-0 button-send">Send</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
 <script>
     const id = "{{conversationid}}"

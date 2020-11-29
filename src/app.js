@@ -32,9 +32,9 @@ app.set('view engine', 'handlebars');
 
 // Setup routes
 routes.auth(app);
-routes.home(app);
 routes.myPage(app);
 routes.testSite(app);
+app.use(routes.home);
 app.use(routes.messagingController);
 app.use(routes.liveWall);
 app.use(routes.users);

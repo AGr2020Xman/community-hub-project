@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             User.hasMany(models.myPage, { as: 'createdPages', onDelete: 'CASCADE' })
         }
-        // fx to get full name - possible requirement
     }
     User.init(
         {
@@ -26,16 +25,26 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
+                notEmpty: true,
                 is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
-                max: 25
+                max: 25,
+                notNull: {
+                    msg: 'A name is required.'
+                },
             }
         },
         lastName: {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
+                notEmpty: {
+                    msg: 'A last name is required.'
+                },
                 is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
-                max: 25
+                max: 25,
+                notNull: {
+                    msg: 'A last name is required.'
+                }
             }
         },
         fullName: {
@@ -47,20 +56,27 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true, 
             validate: {
-                isEmail: true
+                isEmail: true,
             }
         },
         nickname: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
-            max: 20
+            max: 20,
+            validate: {
+                notEmpty: {
+                    msg: 'A nickname is required.'
+                },
+            }
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: true,
+                notEmpty: {
+                    msg: 'A password is required.'
+                    },
                 is: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                 max: 128
             }

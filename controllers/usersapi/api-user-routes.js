@@ -1,21 +1,20 @@
-const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
-const sequelize = require('sequelize');
-const { QueryTypes, Op, Sequelize} = require('sequelize');
-const db = require('../../models')
+const { checkAuthenticated } = require('../../config/middleware/checkAuth');
 const { typeOfQueryData } = require('./api-user-query');
+const express = require('express');
+const router = express.Router();
 
-module.exports = (app) => {
 
-    app.get('/api/users', async (req, res) => {
-        console.log(req.query);
-        if (req.query == " " || req.query === "") {
-            let response = 'Please enter a term to search'
-            res.json(response);
-        } else {
+router.get('/api/users', checkAuthenticated, async (req, res) => {
+    console.log(req.query);
+    if (req.query == " " || req.query === "") {
+        let response = 'Please enter a term to search'
+        res.json(response);
+    } else {
         typeOfQueryData(req, res)
-        }
-    });
-}
+    }
+});
+
+module.exports = router;
    
 
         //

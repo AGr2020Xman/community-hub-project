@@ -16,15 +16,14 @@ module.exports = (sequelize, DataTypes) => {
 
     class Community extends Model {
         static associate(models) {
-            Community.hasMany(models.myPage)
+            Community.belongsTo(models.Geo, { as: 'communityId' })
         }
     }
     Community.init(
         {
            name: {
                type: DataTypes.STRING,
-               unique: true,
-           }             
+           },
         },
         {
             hooks: {},

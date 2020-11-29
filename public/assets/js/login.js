@@ -30,15 +30,15 @@ $(document).ready(function() {
         email: email,
         password: password
       })
-        .then((res, req) => {
-          console.log('sdfgdsfgh',res);
-          console.log('req REQ req',req);
+        .then(async (res, req) => {
+          $("#loginModalText").text("Sign in: Success!");
+		      await $("#loginModal").modal("show").fadeOut(2500);
           window.location.replace("/");
           // If there's an error, log the error
         })
         .catch((err) => {
-          console.log('failed to login', err);
-          // window.location.replace("/login/error");
+          $("#loginModalText").text("Sign in failed. Please check your login details.");
+		      $("#loginModal").modal("show").fadeOut(4000);
 
         });
     }

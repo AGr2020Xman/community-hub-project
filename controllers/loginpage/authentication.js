@@ -9,7 +9,6 @@ module.exports = (app) => {
 
 app.get('/', checkAuthenticated, async (req, res) => {
   await req.user;
-  console.log("Req.USER log", req.user);
   res.render('index.handlebars', {name: req.user.nickname})
 });
 
@@ -23,9 +22,16 @@ app.get('/signup', checkNotAuthenticated, (req, res) => {
 
 app.post('/api/login', checkNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,
+  failureRedirect: '/login/error',
 }))
+
+app.get('/login/error', async (req, res) => {
+  console.log('ConsoleLOG: Login Error');
+  await res.render('login.handlebars', 
+  {
+    failure: 'failure'
+  })
+})
 
 app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
   try{

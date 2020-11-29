@@ -25,9 +25,9 @@ app.post('/api/login', checkNotAuthenticated, passport.authenticate('local', {
   failureRedirect: '/login/error',
 }))
 
-app.get('/login/error', async (req, res) => {
-  console.log('ConsoleLOG: Login Error');
-  await res.render('login.handlebars', 
+app.get('/login/error', (req, res) => {
+  console.log('ConsoleLOG: Login Error', req.query);
+  res.render('login.handlebars', 
   {
     failure: 'failure'
   })

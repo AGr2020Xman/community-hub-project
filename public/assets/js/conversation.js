@@ -154,7 +154,7 @@ const populateMessages = () => {
           message: data[key].text,
           timestamp: data[key].timestamp,
         };
-        message.user === selfUserInfo.nickname
+        message.user === selfUserInfoAlt.nickname
           ? addSentMessage(message)
           : addReceivedMessage(message);
       }

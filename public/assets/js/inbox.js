@@ -2,7 +2,7 @@
 
 // Globals
 // let selfUserInfo = "1d6bf09a-4b99-498f-af74-af694f342723";
-let selfUserInfo;
+let msgUserInfo;
 
 // Elements
 const inboxEl = document.querySelector('.inbox');
@@ -26,7 +26,7 @@ const newSendButtonEl = document.getElementById('new-send-button');
 // };
 
 // Functions
-const getSelfUserInfo = async () => {
+const getMsgUserInfo = async () => {
   return fetch('/api/user_data')
     .then((res) => res.json())
     .then((data) => {
@@ -36,7 +36,7 @@ const getSelfUserInfo = async () => {
 
 const newMessageHandler = async (recipient, messageText) => {
   const messageData = {
-    from: selfUserInfo.nickname,
+    from: msgUserInfo.nickname,
     to: recipient,
     timestamp: new Date(),
     text: messageText,
@@ -121,7 +121,7 @@ const populateHeaders = (headers) => {
 const getHeaders = async () => {
   const params = new URLSearchParams({
     headers: 'true',
-    originId: selfUserInfo.nickname,
+    originId: msgUserInfo.nickname,
   });
   const url = `/api/messages?${params.toString()}`;
   return fetch(url)
@@ -132,7 +132,7 @@ const getHeaders = async () => {
 };
 
 const init = async () => {
-  selfUserInfo = await getSelfUserInfo();
+  msgUserInfo = await getMsgUserInfo();
   const headers = await getHeaders();
   populateHeaders(headers);
 };

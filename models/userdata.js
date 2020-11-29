@@ -1,4 +1,4 @@
-const { Sequelize, Model, NOW } = require('sequelize');
+const { Sequelize, Model } = require('sequelize');
 const bcrypt = require('bcrypt');
 
 // const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
@@ -83,8 +83,11 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate: async (user, options) => {
           user.password = await bcrypt.hash(user.password, 10, null);
-          console.log('should be hashed', user.password);
+          user.fullName = user.firstName + ' ' + user.lastName;
         },
+        beforeUpdate: async (user, options) => {
+          user.password = await bcrypt.hash(user.password, 10, null);
+        }
       },
       sequelize,
       modelName: 'User',

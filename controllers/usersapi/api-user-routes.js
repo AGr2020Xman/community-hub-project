@@ -17,27 +17,24 @@ router.get('/api/users', checkAuthenticated, async (req, res) => {
 module.exports = router;
    
 
-        //
+//
 
-        // const usersObj = {
-        //     firstName: searchedUser.firstName,
-        //     lastname: searchedUser.lastname,
-        //     nickname: searchedUser.nickname,
-        //     uniqueidentifier: searchedUser.uniqueidentifier
-        // }
-        // array OR obj of users, for searching ALL users 
-        // wants names, nickname, uuid, 
-        // i want to search by either firstname or lastname or nickname
-        // return back an accessible obj? or array?
-        // ?firstName = X
-    // })
-    
+// const usersObj = {
+//     firstName: searchedUser.firstName,
+//     lastname: searchedUser.lastname,
+//     nickname: searchedUser.nickname,
+//     uniqueidentifier: searchedUser.uniqueidentifier
+// }
+// array OR obj of users, for searching ALL users
+// wants names, nickname, uuid,
+// i want to search by either firstname or lastname or nickname
+// return back an accessible obj? or array?
+// ?firstName = X
+// })
+
 // query = First Last
 // myquerystring::::: var X = query.split(" ")
 // x[0] = match Firstname, && x[1] = match Lastname
-
-
-    
 
 //     await sequelize.query(
 //         'SELECT * FROM users WHERE id LIKE :search_name',
@@ -55,7 +52,7 @@ module.exports = router;
 //             type: QueryTypes.SELECT
 //         }
 //         );
-        
+
 // // name = first/lastname
 // // id = uniqueIdentifier
 // // nickname = nickname
@@ -67,4 +64,7 @@ module.exports = router;
 //             uniqueidentifier: idSearch.uniqueidentifier
 //         }
 //     })
-// return //result array of search results [{firstName: X, nickname: Y},{},{}]       
+
+//return result array of search results [{firstName: X, nickname: Y},{},{}]
+
+// }

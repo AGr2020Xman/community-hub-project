@@ -38,8 +38,7 @@ $(document).ready(function() {
         })
         .catch((err) => {
           $("#loginModalText").text("Sign in failed. Please check your login details.");
-		      $("#loginModal").modal("show").fadeOut(4000);
-
+          $("#loginModal").modal("show").fadeOut(4000);
         });
-    }
-  });
+      }
+    });

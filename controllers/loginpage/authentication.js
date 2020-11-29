@@ -18,7 +18,6 @@ router.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login");
 });
 
-
 router.get("/signup", checkNotAuthenticated, (req, res) => {
     res.render("signup");
 });
@@ -58,7 +57,7 @@ router.get("/api/user_data", checkAuthenticated, async (req, res) => {
     } else {
     const objectRef = req.user;
     const desiredData = {
-      displayName: objectRef.firstName + " " + objectRef.lastName,
+      displayName: objectRef.firstName + ' ' + objectRef.lastName,
       nickname: objectRef.nickname,
       uniqueIdentifier: objectRef.uniqueIdentifier,
     };
@@ -69,7 +68,7 @@ router.get("/api/user_data", checkAuthenticated, async (req, res) => {
   // Route for logging user out
 router.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect('/');
   });
 
 module.exports = router;

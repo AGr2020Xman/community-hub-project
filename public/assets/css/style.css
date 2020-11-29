@@ -41,7 +41,7 @@
 }
 
 .navbar-brand {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 900;
   font-size: xx-large;
 }
@@ -54,7 +54,7 @@
 }
 
 .navbar-items {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: x-large;
   font-weight: 300;
 }
@@ -84,7 +84,7 @@
 
 /* background-mobile is to use a image instead of a video when on mobile */
 .background-mobile {
-  background: url("/assets/images/Earth.jpg") no-repeat center top;
+  background: url('/assets/images/Earth.jpg') no-repeat center top;
 }
 
 .hero-content {
@@ -203,9 +203,6 @@ i {
   }
 
   /* Replace background video with image on mobiles */
-  #home-hero-video {
-    display: none !important;
-  }
 
   .background-mobile {
     display: block;
@@ -219,7 +216,7 @@ i {
 
   /* The following collapse selectors is add an overlay when expanding the navbar menu on mobiles */
   .collapse:after {
-    content: "";
+    content: '';
     top: 0;
     right: 0;
     bottom: 0;
@@ -241,13 +238,6 @@ i {
     position: fixed;
   }
 
-  /* This media query selector is to fix the image when viewed in portrait */
-  .profile-pic {
-    width: 100%;
-    height: auto !important;
-    padding-bottom: 10px;
-  }
-
   /* Add padding to top of main article when in portrait */
   .main-article {
     padding-top: 25% !important;
@@ -257,21 +247,11 @@ i {
   .overlay-image .image-hover {
     opacity: 1 !important;
   }
-
-  .contact-container {
-    width: auto !important;
-    margin: 0 !important;
-  }
 }
 
 @media only screen and (max-width: 820px) and (orientation: landscape) {
   .hero-content {
     top: 30%;
-  }
-
-  /* Replace background video with image on mobiles */
-  #home-hero-video {
-    display: none !important;
   }
 
   .background-mobile {
@@ -288,23 +268,11 @@ i {
   .overlay-image .image-hover {
     opacity: 1 !important;
   }
-
-  .portfolio-intro {
-    padding-bottom: 20px;
-  }
-
-  .project-description {
-    display: none;
-  }
-
-  .contact-container {
-    width: auto !important;
-  }
 }
 
 .main-article {
   padding-top: 10%;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .main-article h1 {
@@ -319,10 +287,6 @@ i {
   font-size: x-large;
 }
 
-.profile-pic {
-  height: 200px;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -334,42 +298,7 @@ html {
   height: auto;
   /* line-height: 60px; */
   background-color: black;
-  font-family: "Roboto", sans-serif;
-}
-
-.footer .social-bar {
-  text-align: left;
-  padding: 10px 0px 0px 0px;
-}
-
-.footer .social-icon {
-  width: 45px;
-  height: 45px;
-  background-size: 30px 30px;
-}
-
-.contact-details {
-  font-weight: 300;
-  color: #fff;
-  padding-top: 10px;
-}
-
-.region {
-  color: #03aab6;
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 1.2em;
-  margin-bottom: 0px;
-}
-
-.address,
-.telephone {
-  margin: 0 0 1em;
-  margin-bottom: 1em;
-}
-
-.copyright {
-  color: #424242;
+  font-family: 'Roboto', sans-serif;
 }
 
 .card {
@@ -384,15 +313,6 @@ html {
 
 .footer-normal {
   position: relative;
-}
-
-.portfolio-intro {
-  text-align: center;
-  font-size: larger;
-}
-
-.work-container {
-  font-family: "Roboto", sans-serif;
 }
 
 .image {
@@ -434,45 +354,4 @@ html {
 }
 .overlay-image .image-hover {
   background-color: rgba(255, 255, 255, 0.89);
-}
-
-.project-description {
-  font-weight: 300;
-  font-size: smaller;
-}
-
-.btn {
-  opacity: 0.5;
-}
-
-.btn:hover {
-  opacity: 1;
-  background-color: #03aab6;
-  border: none;
-}
-
-.contact-background {
-  background: url(../images/contact_background.jpg) center no-repeat;
-  background-size: cover !important;
-  min-height: 100vh;
-}
-
-.contact-container {
-  background-color: #fff;
-  width: 50%;
-  font-family: "Roboto", sans-serif;
-}
-
-.contact-heading {
-  font-size: x-large;
-}
-
-.contact-container button {
-  background-color: #03aab6;
-  opacity: 1;
-  border: none;
-}
-
-.confirmation {
-  display: none;
 }

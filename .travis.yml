@@ -1,3 +1,12 @@
 language: node_js
+
 node_js:
   - 12
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'create database geo_verse_db;'
+  - mysql -e 'use geo_verse_db;'
+  - mysql -e 'create table user_data(id integer not null);'

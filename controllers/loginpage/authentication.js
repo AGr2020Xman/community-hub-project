@@ -9,17 +9,10 @@ const {
 const app = express();
 
 module.exports = (app) => {
-  // app.get('/', checkAuthenticated, async (req, res) => {
-  //   await req.user;
-  //   console.log("Req.USER log", req.user);
-  //   res.render('index.handlebars', {name: req.user.nickname})
-  // });
-
-
-app.get('/', checkAuthenticated, async (req, res) => {
-  await req.user;
-  res.render('index.handlebars', {name: req.user.nickname})
-});
+// app.get('/', checkAuthenticated, async (req, res) => {
+//   await req.user;
+//   res.render('index.handlebars', {name: req.user.nickname})
+// });
 
 app.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.handlebars");
@@ -40,31 +33,12 @@ app.post('/api/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/login/error', (req, res) => {
-  console.log('ConsoleLOG: Login Error', req.query);
-  res.render('login.handlebars', 
-  {
-    failure: 'failure'
-  })
+  // console.log('ConsoleLOG: Login Error', req.);
+  res.render('login', {failure:'failure',})
 })
 
-app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
-  try{
-    // const protectedPsw = await bcrypt.hash(req.body.password, 10);
-    db.User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      nickname: req.body.nickname,
-      password: req.body.password,
-    }).then(() => {
-      res.status(307)
-      res.redirect('/login')
-    })
-  );
-
-  app.post("/api/signup", checkNotAuthenticated, async (req, res) => {
+app.post("/api/signup", checkNotAuthenticated, async (req, res) => {
     try {
-      // const protectedPsw = await bcrypt.hash(req.body.password, 10);
       db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -98,7 +72,3 @@ app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
     res.redirect("/");
   });
 };
-
-// protected (auth needed) - unprotected routes
-// route guards - ? certain routes only working when lgged in
-// component guard - ? (the create button requires authenticated user)

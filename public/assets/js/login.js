@@ -3,7 +3,7 @@ $(document).ready(function() {
     const loginForm = $("form.login");
     const emailInput = $("input#email");
     const passwordInput = $("input#password");
-  
+    
     // When the form is submitted, we validate there's an email and password entered
     loginForm.on("submit", function(event) {
       event.preventDefault();
@@ -13,6 +13,7 @@ $(document).ready(function() {
       };
   
       if (!userData.email || !userData.password) {
+        console.log('Matching email and password are required.'); //put a div alert here for login page
         return;
       }
   
@@ -33,8 +34,23 @@ $(document).ready(function() {
           // If there's an error, log the error
         })
         .catch((err) => {
-          console.log(err);
+          console.log('failed to login', err);
+          // window.location.replace("/login/error");
+
         });
     }
-  });
   
+    // THEN check if the answer user selected is CORRECT or not
+    // isCorrectAnswer = question.answerId === item.id;
+    // if (isCorrectAnswer) {
+    //   showFeedback(isCorrectAnswer);
+    // } else {
+    //   // IF answer is incorrect - penalise time (10s)
+    //   showFeedback(isCorrectAnswer);
+    // }
+  
+  
+    
+ 
+
+  });

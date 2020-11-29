@@ -14,7 +14,7 @@ router.post('/api/users', checkAuthenticated, async (req, res) => {
 });
 
 router.put('/api/users', checkAuthenticated, async (req, res) => {
-  console.log('USER BEFORE UPDATE', req.user.uniqueIdentifier);
+  console.log('USER BEFORE UPDATE', req.user);
   if (!req.user) {
     res.sendStatus(401);
     return;

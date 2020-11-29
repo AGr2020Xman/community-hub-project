@@ -21,8 +21,6 @@ const typeOfQueryData = async (req, res) => {
     let results;
     const trimSearch = (Object.values(query)[0]).trim();
     const searchTerm = trimSearch
-    console.log('inside this function');
-    console.log(caseType(query));
     switch (caseType(query)) {
         case 0:
             queryResult = await db.User.findAll({
@@ -82,53 +80,6 @@ const typeOfQueryData = async (req, res) => {
             }
             res.json(results)
             break;
-            default: 
-            return;
         }
-    //     case "partial" in query:
-
-    //         // trims off trail or lead space
-    //         // splits out a large name
-    //         // const splitLargeName = query.name.split(" ");
-    //         // first name for querying
-    //         // const qFirstName = splitLargeName.shift();
-    //         // for a multi stage last name - joins it back up (eg: ['Van','der','Wyck'] => Van der Wyck)
-    //         // const qLastName = splitLargeName.join(' ');
-    //         // queryResult = await db.User.findAll({
-    //         //     attributes: ['firstName', 'lastName'],
-    //         //     where: {
-    //         //         [Op.or]: [{ 
-    //         //             firstName: `${searchTerm}`
-    //         //         }, 
-    //         //         {
-    //         //             lastName: `${searchTerm}`
-    //         //         }]
-    //         //     }
-    //         //     });
-    //         //     results = {
-    //         //         searchResult: queryResult
-    //         //     }
-    //         //     res.json(results);
-    //         break;
-    //     case "id" in query:
-    //         break;
-    //     case "nickname":
-    //         break;
-        // default: 
-        //     break;
-        // }
-    //     // queryResult = await db.User.findAll({
-    //     //     attributes: ['firstName', 'lastName'],
-    //     //     where: {
-    //     //         [Op.substring]: `${searchTerm}`
-    //     //     }
-    //     //     });
-    //     //     results = {
-    //     //         searchResult: queryResult
-    //     //     }
-    //     //     res.json(results);
-    //         break;
-    // }
-}
-
+    }
 module.exports = { typeOfQueryData }

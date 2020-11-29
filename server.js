@@ -58,3 +58,5 @@ db.sequelize
     // Create Geoverse chat server
     messaging(server);
   });
+
+module.exports = app;

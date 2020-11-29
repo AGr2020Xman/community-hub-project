@@ -1,0 +1,17 @@
+.card-header {
+  background-color: #e73f64;
+}
+
+.signin-btn,
+.signin-btn:hover {
+  border-color: #e73f64 !important;
+  color: #e73f64 !important;
+}
+
+.signup-card {
+  width: 45rem;
+}
+
+.login-card {
+  width: 25rem;
+}

@@ -14,7 +14,12 @@ const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
 
-    class myPage extends Model {}
+    class myPage extends Model {
+        static associate(models) {
+            myPage.belongsTo(models.User, { as: 'createdPage', onDelete: 'CASCADE' }),
+            myPage.belongsTo(models.Community, { as: 'sites', onDelete: 'CASCADE' })
+        }
+    }
     myPage.init(
         {
            myPage: {
@@ -27,9 +32,6 @@ module.exports = (sequelize, DataTypes) => {
                unique: true,
                max: 250
            },
-           pageHtml: {
-               type: DataTypes.TEXT
-           }
         },
         {
             hooks: {},

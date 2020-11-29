@@ -13,59 +13,56 @@ const bcrypt = require('bcrypt');
 // })
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate(models) {
-      User.hasMany(models.myPage, { as: 'createdPages', onDelete: 'CASCADE' });
-    }
-  }
-  User.init(
-    {
-      firstName: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-          is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
-          max: 25,
-          notNull: {
-            msg: 'A name is required.',
-          },
+
+    class User extends Model {}
+    User.init(
+        {
+        firstName: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
+                max: 25,
+                notNull: {
+                    msg: 'A name is required.'
+                },
+            }
         },
-      },
-      lastName: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: 'A last name is required.',
-          },
-          is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
-          max: 25,
-          notNull: {
-            msg: 'A last name is required.',
-          },
+        lastName: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
+                max: 25,
+                notNull: {
+                    msg: 'A last name is required.'
+                }
+            }
         },
-      },
-      email: {
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
           isEmail: true,
         },
-      },
-      nickname: {
+        },
+        nickname: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         max: 20,
         validate: {
-          notEmpty: {
-            msg: 'A nickname is required.',
-          },
+          notEmpty: true,
         },
-      },
-      password: {
+        },
+        password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -75,12 +72,12 @@ module.exports = (sequelize, DataTypes) => {
           is: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
           max: 128,
         },
-      },
-      uniqueIdentifier: {
+        },
+        uniqueIdentifier: {
         type: DataTypes.UUID,
         defaultValue: Sequelize.UUIDV4,
         unique: true,
-      },
+        },
     },
     {
       hooks: {

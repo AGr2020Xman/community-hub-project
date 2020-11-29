@@ -51,20 +51,23 @@
 
                     </div>
 
-                    <div class="alert alert-danger col-lg-8 p-4 text-center" role="alert" id="incorrect">
-                        Failure to sign in, please check credentials are correct, and try again.
+                    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content text-center">
+                                <div class="modal-body">
+                                    <p class="pt-3" id="loginModalText"></p>
+                                </div>
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
                     </div>
                     </form>
-                    {{#if failure}}
-                    {{> loginerror}}
-                    {{/if}}
-
-
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 </div>
 
 <!-- Material form register -->

@@ -1,34 +1,21 @@
-const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
-const sequelize = require('sequelize');
-const { QueryTypes } = require('sequelize');
-const db = require('../../models');
+const { checkAuthenticated } = require('../../config/middleware/checkAuth');
+const { typeOfQueryData } = require('./api-user-query');
+const express = require('express');
+const router = express.Router();
 
-module.exports = (app) => {
-  app.get('/api/users', async (req, res) => {
-    // from user search in messages
-    const query = req.query;
-    console.log('query', query);
-    console.log('Name', query.name);
-    // trims off trail or lead space
-    const trimmedNoSpace = Object.values(query)[0].trim();
-    console.log(trimmedNoSpace);
-    const splitLargeName = query.name.split(' ');
-    // first name for querying
-    const qFirstName = splitLargeName.shift();
-    // for a multi stage last name - joins it back up (eg: ['Van','der','Wyck'] => Van der Wyck)
-    const qLastName = splitLargeName.join(' ');
 
-    let searchTerm = qFirstName;
-    const queryResult = await sequelize.query(
-      "SELECT firstName + ' ' lastName AS fullName FROM users WHERE firstName LIKE :search_name",
-      {
-        replacements: { search_name: `${searchTerm}` },
-        type: QueryTypes.SELECT,
-      }
-    );
-    console.log(queryResult);
-  });
-};
+router.get('/api/users', checkAuthenticated, async (req, res) => {
+    console.log(req.query);
+    if (req.query == " " || req.query === "") {
+        let response = 'Please enter a term to search'
+        res.json(response);
+    } else {
+        typeOfQueryData(req, res)
+    }
+});
+
+module.exports = router;
+   
 
 //
 

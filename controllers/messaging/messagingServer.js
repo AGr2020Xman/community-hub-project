@@ -1,7 +1,7 @@
-const socket = require("socket.io");
+const socket = require('socket.io');
 
 // Setup Firebase
-const db = require("../../config/initFirebase");
+const db = require('../../config/initFirebase');
 
 // Socket setup
 const createServer = (server) => {
@@ -9,72 +9,63 @@ const createServer = (server) => {
 
   const activeUsers = new Set();
 
-  const createNamespace = (socket, namespace) => {
-    console.log("Made socket connection", namespace);
-
-    socket.on("direct", (room) => {
-      console.log("Joined Room:", room);
-      socket.join(room);
+  const createNamespace = (sock, namespace) => {
+    sock.on('direct', (room) => {
+      sock.join(room);
     });
 
-    socket.on("new user", (data) => {
+    sock.on('new user', (data) => {
       socket.userId = data;
       activeUsers.add(data);
-      io.of(namespace).emit("new user", [...activeUsers]);
+      io.of(namespace).emit('new user', [...activeUsers]);
     });
 
-    socket.on("disconnect", () => {
-      activeUsers.delete(socket.userId);
-      io.of(namespace).emit("user disconnected", socket.userId);
+    sock.on('disconnect', () => {
+      activeUsers.delete(sock.userId);
+      io.of(namespace).emit('user disconnected', socket.userId);
     });
 
-    socket.on("wall post", async (data) => {
-      io.of(namespace).emit("wall post", data);
+    sock.on('wall post', async (data) => {
+      io.of(namespace).emit('wall post', data);
       const postData = {
-        namespace: namespace,
+        namespace,
         user: data.nick,
         timestamp: data.timestamp,
         message: data.message,
       };
-      console.log(postData);
-      await db.collection("posts").add(postData);
+      await db.collection('posts').add(postData);
     });
 
-    socket.on("direct message", async (data) => {
-      io.of(namespace).to(data.id).emit("direct message", data);
-      console.log("Direct Message", data);
+    sock.on('direct message', async (data) => {
+      io.of(namespace).to(data.id).emit('direct message', data);
       const messsageObj = {
         conversationId: data.id,
         from: data.nick,
         timestamp: data.timestamp,
         text: data.message,
       };
-      await db
-        .collection("conversations")
-        .doc(data.id)
-        .collection("messages")
-        .add(messsageObj);
+      await db.collection('conversations').doc(data.id).collection('messages').add(messsageObj);
     });
 
-    socket.on("typing", (data) => {
-      socket.broadcast.emit("typing", data);
+    sock.on('typing', (data) => {
+      socket.broadcast.emit('typing', data);
     });
   };
 
   // Create direct message namespace
-  const directNamespace = io.of("/direct");
-  directNamespace.on("connection", (socket) => {
-    createNamespace(socket, "direct");
+  const directNamespace = io.of('/direct');
+  directNamespace.on('connection', (sock) => {
+    createNamespace(sock, 'direct');
   });
 
   // import communities
-  const communities = ["vancouver-test"];
+  const communities = ['vancouver-test'];
 
   // Create a namespace for each community
   communities.forEach((communityNamespace) => {
     const namespace = io.of(`/${communityNamespace}`);
-    namespace.on("connection", (socket) => {
-      createNamespace(socket, communityNamespace);
+    namespace.on('connection', (sock) => {
+      createNamespace(sock, communityNamespace);
     });
   });
 };

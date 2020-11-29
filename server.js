@@ -38,18 +38,21 @@ app.engine("handlebars", exphbs({ defaultLayout: "default" }));
 app.set("view engine", "handlebars");
 
 // Routes
-require("./controllers/loginpage/authentication")(app);
+app.use(require("./controllers/loginpage/authentication"));
 require("./controllers/mypages/myPage")(app);
 require("./controllers/testController")(app);
-require("./controllers/static/static")(app);
+app.use(require("./controllers/static/static"));
 app.use(require("./controllers/messaging/messagingController"));
 app.use(require("./controllers/messaging/messagingApi"));
-require("./controllers/usersapi/api-user-routes")(app);
+app.use(require("./controllers/usersapi/api-user-routes"));
+app.use(require('./controllers/communities/community-api'));
+app.use(require('./controllers/geos/geo-api'));
+
 
 // // Listener
 // Syncing our database and logging a message to the user upon success
 db.sequelize
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     return app.listen(PORT, () => {
       console.log(

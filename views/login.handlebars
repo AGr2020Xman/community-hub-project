@@ -12,20 +12,20 @@
                     <!--Card content-->
                     <div class="card-body px-lg-5 pt-0">
 
-                        <!-- Form -->
+
                         <form class="text-center login" style="color: #757575;" action="#!" method="POST">
 
                             <div class="form-row">
 
                                 <div class="col">
 
-                                    <!-- E-mail -->
+
                                     <div class="md-form">
                                         <input type="email" id="email" class="form-control">
                                         <label for="email">E-mail</label>
                                     </div>
 
-                                    <!-- Password -->
+
                                     <div class="md-form">
                                         <input type="password" id="password" class="form-control"
                                             aria-describedby="passwordHelpBlock">
@@ -35,28 +35,30 @@
                                         </small>
                                     </div>
 
-                                    <!-- Newsletter -->
-                                    {{!-- <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialRegisterFormNewsletter">
-                <label class="form-check-label" for="materialRegisterFormNewsletter">Subscribe to our newsletter</label>
-            </div> --}}
 
-                                    <!-- Sign up button -->
                                     <button
                                         class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
                                         type="submit">Sign
                                         in</button>
 
-                                    <!-- Terms of service -->
+
                                     <p>Don't have an account?
-                                        <em><a href="/signup" {{! -- target="_blank" -->}}>Sign up here</a></em></p>
+                                        <em><a href="/signup">Sign up here</a></em></p>
                                 </div>
                             </div>
 
                         </form>
-                        <!-- Form -->
 
                     </div>
+
+                    <div class="alert alert-danger col-lg-8 p-4 text-center" role="alert" id="incorrect">
+                        Failure to sign in, please check credentials are correct, and try again.
+                    </div>
+                    </form>
+                    {{#if failure}}
+                    {{> loginerror}}
+                    {{/if}}
+
 
                 </div>
             </div>

@@ -1,41 +1,44 @@
-const express = require("express");
-const passport = require("../../config/passport-config");
-const db = require("../../models");
-const {
-  checkAuthenticated,
-  checkNotAuthenticated,
-} = require("../../config/middleware/checkAuth");
+const express = require('express');
+const passport = require('../../config/passport-config');
+const db = require('../../models');
+const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
 
 const app = express();
 
 module.exports = (app) => {
   // app.get('/', checkAuthenticated, async (req, res) => {
   //   await req.user;
-  //   console.log("Req.USER log", req.user);
   //   res.render('index.handlebars', {name: req.user.nickname})
   // });
 
-  app.get("/login", checkNotAuthenticated, (req, res) => {
-    res.render("login.handlebars");
+  app.get('/login', checkNotAuthenticated, (req, res) => {
+    res.render('login.handlebars');
   });
 
-  app.get("/signup", checkNotAuthenticated, (req, res) => {
-    res.render("signup.handlebars");
+  app.get('/signup', checkNotAuthenticated, (req, res) => {
+    res.render('signup.handlebars');
+  });
+
+  app.get('/signup', checkNotAuthenticated, (req, res) => {
+    res.render('signup.handlebars');
   });
 
   app.post(
-    "/api/login",
+    '/api/login',
     checkNotAuthenticated,
-    passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/login",
-      failureFlash: true,
+    passport.authenticate('local', {
+      successRedirect: '/',
+      failureRedirect: '/login/error',
     })
   );
 
-  app.post("/api/signup", checkNotAuthenticated, async (req, res) => {
+  app.get('/login/error', (req, res) => {
+    // console.log('ConsoleLOG: Login Error', req.);
+    res.render('login', { failure: 'failure' });
+  });
+
+  app.post('/api/signup', checkNotAuthenticated, async (req, res) => {
     try {
-      // const protectedPsw = await bcrypt.hash(req.body.password, 10);
       db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -44,19 +47,19 @@ module.exports = (app) => {
         password: req.body.password,
       }).then(() => {
         res.status(307);
-        res.redirect("/login");
+        res.redirect('/login');
       });
     } catch (err) {
-      if (err) console.log("There was an error signing up user:\n");
+      if (err) console.log('There was an error signing up user:\n');
       res.status(401).json(err);
-      res.redirect("/signup");
+      res.redirect('/signup');
     }
   });
 
-  app.get("/api/user_data", checkAuthenticated, async (req, res) => {
+  app.get('/api/user_data', checkAuthenticated, async (req, res) => {
     const objectRef = await req.user;
     const desiredData = {
-      displayName: objectRef.firstName + " " + objectRef.lastName,
+      displayName: objectRef.firstName + ' ' + objectRef.lastName,
       nickname: objectRef.nickname,
       uniqueIdentifier: objectRef.uniqueIdentifier,
     };
@@ -64,12 +67,8 @@ module.exports = (app) => {
   });
 
   // Route for logging user out
-  app.get("/logout", (req, res) => {
+  app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect('/');
   });
 };
-
-// protected (auth needed) - unprotected routes
-// route guards - ? certain routes only working when lgged in
-// component guard - ? (the create button requires authenticated user)

@@ -5,39 +5,36 @@ const {
   checkAuthenticated,
   checkNotAuthenticated,
 } = require("../../config/middleware/checkAuth");
+const router = express.Router();
 
-const app = express();
 
-module.exports = (app) => {
-app.get('/', checkAuthenticated, async (req, res) => {
-  await req.user;
-  res.render('index.handlebars', {name: req.user.nickname})
+
+// router.get('/', checkAuthenticated, async (req, res) => {
+//   await req.user;
+//   res.render('index.handlebars', {name: req.user.nickname})
+// });
+
+router.get("/login", checkNotAuthenticated, (req, res) => {
+  res.render("login");
 });
 
-app.get("/login", checkNotAuthenticated, (req, res) => {
-  res.render("login.handlebars");
+
+router.get("/signup", checkNotAuthenticated, (req, res) => {
+    res.render("signup");
 });
 
 
-  app.get("/signup", checkNotAuthenticated, (req, res) => {
-    res.render("signup.handlebars");
-  });
-  
-app.get('/signup', checkNotAuthenticated, (req, res) => {
-  res.render('signup.handlebars')
-})
-
-app.post('/api/login', checkNotAuthenticated, passport.authenticate('local'), (req, res) => {
+router.post('/api/login', checkNotAuthenticated, passport.authenticate('local'), (req, res) => {
   console.log(req.user);
   res.json(req.user)
 });
 
-app.get('/login/error', (req, res) => {
-  // console.log('ConsoleLOG: Login Error', req.);
-  res.render('login', {failure:'failure',})
-})
+// router.get('/login/error', (req, res) => {
+//   // console.log('ConsoleLOG: Login Error', req.);
+//   res.render('login', {failure:'failure',})
+// })
 
-app.post("/api/signup", checkNotAuthenticated, async (req, res) => {
+router.post("/api/signup", checkNotAuthenticated, async (req, res) => {
     try {
       db.User.create({
         firstName: req.body.firstName,
@@ -46,23 +43,20 @@ app.post("/api/signup", checkNotAuthenticated, async (req, res) => {
         nickname: req.body.nickname,
         password: req.body.password,
       }).then((dbUser) => {
-        res.json(dbUser);
-        res.status(307);
-        res.redirect("/login");
+        req.login(dbUser, () => {
+          res.status(201).json(dbUser)
+        });
       });
     } catch (err) {
-      if (err) console.log("There was an error signing up user:\n");
-      res.status(401);
-      res.json(err);
-      res.redirect("/signup");
+      res.status(400).json(err);
     }
   });
 
-  app.get("/api/user_data", checkAuthenticated, async (req, res) => {
+router.get("/api/user_data", checkAuthenticated, async (req, res) => {
     if (!req.user) {
       res.json({})
     } else {
-    const objectRef = await req.user;
+    const objectRef = req.user;
     const desiredData = {
       displayName: objectRef.firstName + " " + objectRef.lastName,
       nickname: objectRef.nickname,
@@ -73,8 +67,9 @@ app.post("/api/signup", checkNotAuthenticated, async (req, res) => {
   });
 
   // Route for logging user out
-  app.get("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
-};
+
+module.exports = router;

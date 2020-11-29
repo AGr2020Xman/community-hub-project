@@ -15,20 +15,14 @@ $(document).ready(function () {
       url: '/api/users',
       method: 'PUT',
       data: {
-        firstName: firstName,
-        lastName: lastName,
-        password: password,
+        firstName,
+        lastName,
+        password,
       },
-      success: function (req, res) {
-        res.json(this.data);
-        res.redirect('/user-profile');
+      success(req, res) {
+        window.location.replace('/');
       },
-    })
-      .then((data) => {
-        window.location.replace('/user-profile');
-        // If there's an error, handle it by throwing up a bootstrap alert
-      })
-      .catch(handleLoginErr);
+    }).catch(handleLoginErr);
   };
 
   // This file just does a GET request to figure out which user is logged in
@@ -44,9 +38,11 @@ $(document).ready(function () {
       lastName: lastNameField.val().trim(),
       password: passwordField.val().trim(),
     };
+    console.log(userData);
     if (!userData.firstName || !userData.lastName || !userData.password) {
       $('#loginModalText').text("Please fill in all fields, even if it's with the same details.");
       $('#loginModal').modal('show').fadeOut(5000);
+      console.log('error conditioned');
       return;
     }
     // If we have an email and password, run the updateUser function

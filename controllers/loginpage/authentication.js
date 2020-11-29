@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('../../config/passport-config');
 const db = require('../../models');
 const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
+
 const router = express.Router();
 
 // router.get('/', checkAuthenticated, async (req, res) => {
@@ -18,7 +19,6 @@ router.get('/signup', checkNotAuthenticated, (req, res) => {
 });
 
 router.post('/api/login', checkNotAuthenticated, passport.authenticate('local'), (req, res) => {
-  console.log(req.user);
   res.json(req.user);
 });
 
@@ -51,7 +51,7 @@ router.get('/api/user_data', checkAuthenticated, async (req, res) => {
   } else {
     const objectRef = await req.user;
     const desiredData = {
-      displayName: objectRef.firstName + ' ' + objectRef.lastName,
+      displayName: objectRef.fullName,
       nickname: objectRef.nickname,
       uniqueIdentifier: objectRef.uniqueIdentifier,
     };

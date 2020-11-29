@@ -1,5 +1,4 @@
-const { Sequelize, Model } = require('sequelize');
-const bcrypt = require('bcrypt');
+const { Model } = require('sequelize');
 
 // const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
 //     host: '127.0.0.1',
@@ -13,23 +12,22 @@ const bcrypt = require('bcrypt');
 // })
 
 module.exports = (sequelize, DataTypes) => {
-
-    class Community extends Model {
-        static associate(models) {
-            Community.belongsTo(models.Geo, { as: 'communityId' })
-        }
+  class Community extends Model {
+    static associate(models) {
+      Community.belongsTo(models.Geo, { foreignKey: 'containingGeoId', as: 'geo' });
     }
-    Community.init(
-        {
-           name: {
-               type: DataTypes.STRING,
-           },
-        },
-        {
-            hooks: {},
-            sequelize,
-            modelName: 'Community',
-        }
-    );
-    return Community
-  };
+  }
+  Community.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+      },
+    },
+    {
+      hooks: {},
+      sequelize,
+      modelName: 'Community',
+    }
+  );
+  return Community;
+};

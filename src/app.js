@@ -40,6 +40,7 @@ app.use(routes.home);
 app.use(routes.messagingController);
 app.use(routes.liveWall);
 app.use(routes.users);
+app.use(routes.userProf);
 
 
 module.exports = app;

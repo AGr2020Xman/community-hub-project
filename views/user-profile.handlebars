@@ -31,12 +31,86 @@
 
 <body>
     <div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
 
-    </div>
-    <script type="text/javascript" src="/assets/js/index.js"></script>
-    <script type="text/javascript" src="/assets/js/signup.js"></script>
-    <script type="text/javascript" src="/assets/js/signup.js"></script>
-    <script type="text/javascript" src="/assets/js/user-profile.js"></script>
+                    <div class="card signup-card mx-auto">
+
+                        <h5 class="card-header white-text text-center py-4">
+                            <strong class="active-user"></strong>'s' Profile
+                        </h5>
+
+                        <!--Card content-->
+                        <div class="card-body px-lg-5 pt-0">
+
+                            <!-- Form -->
+                            <form class="text-center update" style="color: #757575;" action="#!" method="POST">
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <!-- First name -->
+                                        <div class="md-form">
+                                            <input type="text" id="firstNameField" class="form-control">
+                                            <label for="firstName">Change first name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Last name -->
+                                        <div class="md-form">
+                                            <input type="text" id="lastNameField" class="form-control">
+                                            <label for="lastName">Change last name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="md-form">
+                                    <input type="password" id="passwordField" class="form-control"
+                                        aria-describedby="FormPasswordHelpBlock">
+                                    <label for="password">Change Password</label>
+                                    <small id="FormPasswordHelpBlock" class="form-text text-muted mb-4">
+                                        Must contain at least: 1 uppercase letter, 1 alphanumeric character and 1
+                                        special
+                                        character
+                                    </small>
+                                </div>
+                                <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span> <span class="msg"></span>
+                                </div>
+                                <!-- Sign up button -->
+                                <button
+                                    class="signin-btn btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                                    type="submit">Edit Details
+                                </button>
+
+                                <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content text-center">
+                                            <div class="modal-body">
+                                                <p class="pt-3" id="loginModalText"></p>
+                                            </div>
+                                            <button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                            <!-- Form -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <script type="text/javascript" src="/assets/js/index.js"></script>
+        <script type="text/javascript" src="/assets/js/signup.js"></script>
+        <script type="text/javascript" src="/assets/js/user-profile.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,10 @@
 const { checkAuthenticated, checkNotAuthenticated } = require('../../config/middleware/checkAuth');
 const express = require('express');
+
 const router = express.Router();
 
-// router.get('/api/user_data', checkAuthenticated, (req, res) => {
-
-// })
+router.get('/user-profile', checkAuthenticated, async (req, res) => {
+  res.render('user-profile');
+});
 
 module.exports = router;

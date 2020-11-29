@@ -7,11 +7,9 @@ $(document).ready(function() {
   const firstNameInput = $("input#firstName");
   const lastNameInput = $("input#lastName");
 
-console.log('TESTING');
   // When the signup button is clicked, we validate the email and password are not blank
   signUpForm.on("submit", function(event) {
     event.preventDefault();
-    console.log(emailInput, passwordInput, nicknameInput);
     const userData = {
       firstName: firstNameInput.val().trim(),
       lastName: lastNameInput.val().trim(),

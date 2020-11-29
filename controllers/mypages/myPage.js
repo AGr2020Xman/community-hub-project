@@ -6,7 +6,7 @@ const { checkAuthenticated, checkNotAuthenticated } = require('../../config/midd
 // Create routes
 module.exports = (app) => {
   // Get route for createMyPage
-  app.get("/sites/:geo/:community/create", (req, res) => {
+  app.get("/sites/:geo/:community/create", checkAuthenticated, (req, res) => {
     res.render("createMyPage", req.params);
   });
 

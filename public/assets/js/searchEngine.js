@@ -6,8 +6,8 @@ $(() => {
         pageOptions = await searchAllSites(req.partial);
         let pageSuggestion = $.map(pageOptions, (element) => {
           return {
-            label: element.title + " - " + element.CommunityId,
-            value: element.title,
+            label: element.name + " - " + element.CommunityId,
+            value: element.name,
           };
         });
         response(pageSuggestion);

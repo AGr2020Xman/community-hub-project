@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 // Dependences
 const express = require("express");
 const session = require("express-session");

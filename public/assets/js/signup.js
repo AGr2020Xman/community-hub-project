@@ -7,33 +7,7 @@ $(document).ready(function() {
   const firstNameInput = $("input#firstName");
   const lastNameInput = $("input#lastName");
 
-console.log('TESTING');
-  // When the signup button is clicked, we validate the email and password are not blank
-  signUpForm.on("submit", function(event) {
-    event.preventDefault();
-    console.log(emailInput, passwordInput, nicknameInput);
-    const userData = {
-      firstName: firstNameInput.val().trim(),
-      lastName: lastNameInput.val().trim(),
-      email: emailInput.val().trim(),
-      nickname: nicknameInput.val().trim(),
-      password: passwordInput.val().trim(),
-    };
-
-    if (!userData.firstName || !userData.lastName || !userData.email || !userData.nickname || !userData.password) {
-      $('#incorrect').show().fadeOut(5000);
-      return;
-    }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(userData.firstName, userData.lastName, userData.email, userData.nickname, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
-    nicknameInput.val("");
-    firstNameInput.val("");
-    lastNameInput.val("");
-  });
-
-  // Does a post to the signup route. If successful, we are redirected to the members page
+// Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   const signUpUser = (firstName, lastName, email, nickname, password) => {
     $.post("/api/signup", {
@@ -54,4 +28,28 @@ console.log('TESTING');
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
   }
+
+  // When the signup button is clicked, we validate the email and password are not blank
+  signUpForm.on("submit", function(event) {
+    event.preventDefault();
+    const userData = {
+      firstName: firstNameInput.val().trim(),
+      lastName: lastNameInput.val().trim(),
+      email: emailInput.val().trim(),
+      nickname: nicknameInput.val().trim(),
+      password: passwordInput.val().trim(),
+    };
+
+    if (!userData.firstName || !userData.lastName || !userData.email || !userData.nickname || !userData.password) {
+      $('#incorrect').show().fadeOut(5000);
+      return;
+    }
+    // If we have an email and password, run the signUpUser function
+    signUpUser(userData.firstName, userData.lastName, userData.email, userData.nickname, userData.password);
+    emailInput.val("");
+    passwordInput.val("");
+    nicknameInput.val("");
+    firstNameInput.val("");
+    lastNameInput.val("");
+  });
 });

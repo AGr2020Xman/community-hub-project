@@ -15,7 +15,7 @@ db.sequelize
   .sync({ force: true })
   .then(() => {
     return app.listen(PORT, () => {
-      console.log(`Geoverse main server app listening on: https://localhost:${PORT}`);
+      console.log(`Geoverse main server app listening on: http://localhost:${PORT}`);
     });
   })
   .then((server) => {

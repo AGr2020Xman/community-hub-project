@@ -47,7 +47,7 @@
     ],
     "transform": {
       "^.\\.handlebars$": "handlebars-jest"
-  }
+    }
   },
   "scripts": {
     "lint": "eslint --fix .",

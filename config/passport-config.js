@@ -13,6 +13,7 @@ passport.use(new LocalStrategy(
                 email: email
             }
         }).then(async (user) => {
+            console.log('dbUSER here', user);
             if (!user || typeof user === 'null') {
                 return done(null, false, { message: 'No user with that email registered.' });
             }

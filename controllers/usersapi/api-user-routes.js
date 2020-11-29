@@ -8,16 +8,13 @@ module.exports = (app) => {
 
     app.get('/api/users', async (req, res) => {
         console.log(req.query);
+        if (req.query == " " || req.query === "") {
+            let response = 'Please enter a term to search'
+            res.json(response);
+        } else {
         typeOfQueryData(req, res)
-        // from user search in messages
-        // console.log('query', query);
-        // console.log('Name',query.name);
-        
-        
-        
-
-        
-});
+        }
+    });
 }
    
 

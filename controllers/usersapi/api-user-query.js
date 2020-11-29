@@ -70,7 +70,7 @@ const typeOfQueryData = async (req, res) => {
                 attributes: ['nickname'],
                 where: {
                     nickname: {
-                        [Op.like]: [`%${searchTerm}`]
+                        [Op.substring]: [`${searchTerm}`]
                     }
                 },
                 raw: true

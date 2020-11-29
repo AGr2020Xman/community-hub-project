@@ -19,6 +19,7 @@ $(document).ready(function() {
     };
 
     if (!userData.firstName || !userData.lastName || !userData.email || !userData.nickname || !userData.password) {
+      $('#incorrect').show().fadeOut(5000);
       return;
     }
     // If we have an email and password, run the signUpUser function
@@ -33,7 +34,6 @@ $(document).ready(function() {
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   const signUpUser = (firstName, lastName, email, nickname, password) => {
-    console.log('OVER HERE', firstName, lastName, email, nickname, password);
     $.post("/api/signup", {
       firstName: firstName,
       lastName: lastName,

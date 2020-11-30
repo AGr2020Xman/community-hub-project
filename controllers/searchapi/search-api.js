@@ -1,5 +1,5 @@
 const db = require('../../models');
-const { QueryTypes, Op, Sequelize } = require('sequelize');
+const { Op } = require('sequelize');
 
 const caseType = (query) => {
   if ('community' in query) {
@@ -23,10 +23,10 @@ const geoOrCommunity = async (req, res) => {
   switch (caseType(query)) {
     case 0:
       queryResult = await db.Community.findAll({
-        attributes: ['name'],
         where: {
           [Op.substring]: [`${searchTerm}`],
         },
+        attributes: ['name'],
         raw: true,
       });
       results = {

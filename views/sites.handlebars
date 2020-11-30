@@ -5,8 +5,11 @@
 
 <div class="container mt-5">
     <div class="row">
-        {{#each sites}}
-        <div class="col-md-4">
+
+        <div class="col-md-4 w-100">
+            <button class="btn btn-pink btn-block" id="create-mypage">Create a MyPage</button>
+            {{#each sites}}
+
             <a class="search-card-link" href="/sites/{{geo}}/{{community}}/{{name}}">
                 <div class="search-card card mx-auto">
                     <div class="card-body">
@@ -14,18 +17,13 @@
                     </div>
                 </div>
             </a>
+
+            {{/each}}
+        </div>
+        <div class="col-md-8 w-100">
+            {{> livewall}}
         </div>
     </div>
-    {{/each}}
+
 </div>
-
-
-{{!-- <h1>Sites</h1>
-
-<ul>
-    {{#each sites}}
-    <li>
-        <a href="/sites/{{geo}}/{{community}}/{{name}}">{{title}}</a>
-    </li>
-    {{/each}}
-</ul> --}}
+<script src="/assets/js/sites.js"></script>

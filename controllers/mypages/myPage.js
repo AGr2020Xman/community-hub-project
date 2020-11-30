@@ -34,7 +34,7 @@ module.exports = (app) => {
       .where('geo', '==', req.params.geo)
       .where('community', '==', req.params.community);
     sitesRef.get().then((docs) => {
-      const hbsObject = { sites: {} };
+      const hbsObject = { sites: {}, geo: req.params.geo, community: req.params.community };
       docs.forEach((site) => {
         hbsObject.sites[site.id] = {
           ...site.data(),

@@ -10,6 +10,7 @@ const createServer = (server) => {
   const activeUsers = new Set();
 
   const createNamespace = (socket, namespace) => {
+    console.log('Creating namespace', namespace);
     socket.on('direct', (room) => {
       socket.join(room);
     });
@@ -59,7 +60,34 @@ const createServer = (server) => {
   });
 
   // import communities
-  const communities = ['vancouver-test'];
+  const cities = [
+    'paris',
+    'tokyo',
+    'london',
+    'sydney',
+    'vancouver',
+    'perth',
+    'rome',
+    'geneva',
+    'amsterdam',
+    'brisbane',
+  ];
+
+  const topics = ['computers', 'pets', 'bikes', 'cars'];
+
+  const resultArr = [];
+
+  const merge = (arr1, arr2) => {
+    arr1.forEach((city) => {
+      arr2.forEach((topic) => {
+        resultArr.push(`${city}-${topic}`);
+      });
+    });
+  };
+
+  merge(cities, topics);
+
+  const communities = resultArr;
 
   // Create a namespace for each community
   communities.forEach((communityNamespace) => {

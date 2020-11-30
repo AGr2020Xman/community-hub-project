@@ -2,7 +2,7 @@
 
 ![badge](https://img.shields.io/badge/License-mit-green.svg)<br />
 
-##### Bringing the Global, local!
+#### Bringing the Global, local!
 
 ## Description
 

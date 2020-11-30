@@ -70,7 +70,16 @@
                         <!-- Terms of service -->
                         <p>Already have an account?
                             <em><a href="/login" {{!target="_blank"}}>Log In</a></em></p>
-
+                        <div class="modal fade incorrect" id="signupModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content text-center">
+                                    <div class="modal-body">
+                                        <p class="pt-3" id="signupModalText"></p>
+                                    </div>
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                     <!-- Form -->
 

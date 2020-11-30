@@ -4,10 +4,6 @@ $(document).ready(function () {
   const lastNameField = $('#lastNameField');
   const passwordField = $('#passwordField');
 
-  const handleLoginErr = (err) => {
-    $('#alert .msg').text(err.responseJSON);
-    $('#alert').fadeIn(500);
-  };
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   const updateUser = (firstName, lastName, password) => {
@@ -22,7 +18,10 @@ $(document).ready(function () {
       success(req, res) {
         window.location.replace('/');
       },
-    }).catch(handleLoginErr);
+    }).catch(() => {
+      $('#deleteModalText').text('Delete failed.');
+      $('#deleteModal').modal('show').fadeOut(4000);
+    });
   };
 
   // This file just does a GET request to figure out which user is logged in
@@ -41,9 +40,10 @@ $(document).ready(function () {
     };
     console.log(userDataProf);
     if (!userDataProf.firstName || !userDataProf.lastName || !userDataProf.password) {
-      $('#editModalText').text("Please fill in all fields, even if it's with the same details.");
+      $('#editModalText').text(
+        "Update failed. Please fill in all fields, even if it's with the same details."
+      );
       $('#editModal').modal('show').fadeOut(5000);
-      return;
     }
     // If we have an email and password, run the updateUser function
     updateUser(userDataProf.firstName, userDataProf.lastName, userDataProf.password);
@@ -64,12 +64,9 @@ $(document).ready(function () {
       },
     }).catch(handleLoginErr);
   };
-  $('.delete-btn').on('submit', function (event) {
+  $('form.delete').on('submit', function (event) {
     event.preventDefault();
-
-    $.get('/api/user_data').then((data) => {
-      const userUUID = data.uniqueIdentifier;
-      deleteUser(userUUID);
-    });
+    const userUUID = $('#hiddenValue').val();
+    deleteUser(userUUID);
   });
 });

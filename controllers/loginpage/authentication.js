@@ -50,6 +50,7 @@ router.get('/api/user_data', checkAuthenticated, async (req, res) => {
     res.json({});
   } else {
     const objectRef = await req.user;
+    console.log(objectRef);
     const desiredData = {
       displayName: objectRef.fullName,
       nickname: objectRef.nickname,

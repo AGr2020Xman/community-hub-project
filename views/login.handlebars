@@ -25,6 +25,10 @@
                                         At least 8 characters and 1 digit
                                     </small>
                                 </div>
+                                <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span> <span class="msg"></span>
+                                </div>
                                 <button
                                     class="signin-btn btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
                                     type="submit">Sign
@@ -36,29 +40,29 @@
                         </div>
 
 
-                        </form>
+                    </form>
 
-                    </div>
+                </div>
 
-                    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content text-center">
-                                <div class="modal-body">
-                                    <p class="pt-3" id="loginModalText"></p>
-                                </div>
-                                <button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
+                <div class="modal fade incorrect" id="loginModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content text-center">
+                            <div class="modal-body">
+                                <p class="pt-3" id="loginModalText"></p>
                             </div>
+                            <button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
                         </div>
                     </div>
-
-                    </form>
                 </div>
-         
+
                 </form>
-         
             </div>
+
+            </form>
+
         </div>
     </div>
+</div>
 
 </div>
 </div>

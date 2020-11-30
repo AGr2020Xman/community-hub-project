@@ -1,36 +1,36 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Getting references to our form and input
-  const signUpForm = $("form.signup");
-  const emailInput = $("input#email");
-  const passwordInput = $("input#password");
-  const nicknameInput = $("input#nickname");
-  const firstNameInput = $("input#firstName");
-  const lastNameInput = $("input#lastName");
+  const signUpForm = $('form.signup');
+  const emailInput = $('input#email');
+  const passwordInput = $('input#password');
+  const nicknameInput = $('input#nickname');
+  const firstNameInput = $('input#firstName');
+  const lastNameInput = $('input#lastName');
 
-// Does a post to the signup route. If successful, we are redirected to the members page
+  // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   const signUpUser = (firstName, lastName, email, nickname, password) => {
-    $.post("/api/signup", {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      nickname: nickname,
-      password: password
+    $.post('/api/signup', {
+      firstName,
+      lastName,
+      email,
+      nickname,
+      password,
     })
-      .then(function(data) {
-        window.location.replace("/login");
+      .then(() => {
+        $('#loginModalText').text('Sign in success! Logging in.');
+        $('#loginModal').modal('show').fadeOut(4000);
+        window.location.replace('/login');
         // If there's an error, handle it by throwing up a bootstrap alert
       })
-      .catch(handleLoginErr);
-  }
-
-  const handleLoginErr = (err) => {
-    $("#alert .msg").text('Sign up failed');
-    $("#alert").fadeIn(500);
-  }
+      .catch(() => {
+        $('#loginModalText').text('Sign in failed. Please check your login details.');
+        $('#loginModal').modal('show').fadeOut(4000);
+      });
+  };
 
   // When the signup button is clicked, we validate the email and password are not blank
-  signUpForm.on("submit", function(event) {
+  signUpForm.on('submit', (event) => {
     event.preventDefault();
     const userData = {
       firstName: firstNameInput.val().trim(),
@@ -40,16 +40,28 @@ $(document).ready(function() {
       password: passwordInput.val().trim(),
     };
 
-    if (!userData.firstName || !userData.lastName || !userData.email || !userData.nickname || !userData.password) {
-      $('#incorrect').show().fadeOut(5000);
-      return;
+    if (
+      !userData.firstName ||
+      !userData.lastName ||
+      !userData.email ||
+      !userData.nickname ||
+      !userData.password
+    ) {
+      $('#signupModalText').text('Sign in failed. Please check your signup details.');
+      $('#signupModal').modal('show').fadeOut(4000);
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(userData.firstName, userData.lastName, userData.email, userData.nickname, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
-    nicknameInput.val("");
-    firstNameInput.val("");
-    lastNameInput.val("");
+    signUpUser(
+      userData.firstName,
+      userData.lastName,
+      userData.email,
+      userData.nickname,
+      userData.password
+    );
+    emailInput.val('');
+    passwordInput.val('');
+    nicknameInput.val('');
+    firstNameInput.val('');
+    lastNameInput.val('');
   });
 });

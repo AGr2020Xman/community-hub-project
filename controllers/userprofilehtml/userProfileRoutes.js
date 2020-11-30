@@ -5,9 +5,11 @@ const router = express.Router();
 
 router.get('/user-profile', checkAuthenticated, async (req, res) => {
   const user = await req.user;
-  console.log(user);
-
-  res.render('user-profile', { ...user });
+  const data = {
+    displayName: user.fullName,
+    nickname: user.nickname,
+    uniqueIdentifier: user.uniqueIdentifier,
+  };
+  res.render('user-profile', data);
 });
-
 module.exports = router;

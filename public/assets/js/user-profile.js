@@ -67,6 +67,7 @@ $(document).ready(function () {
   $('form.delete').on('submit', function (event) {
     event.preventDefault();
     const userUUID = $('#hiddenValue').val();
+    console.log(userUUID);
     deleteUser(userUUID);
   });
 });

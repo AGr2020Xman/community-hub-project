@@ -1,6 +1,5 @@
 const { Sequelize, Model } = require('sequelize');
 const bcrypt = require('bcrypt');
-const express = require('express');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {}
@@ -75,7 +74,6 @@ module.exports = (sequelize, DataTypes) => {
           user.fullName = user.firstName + ' ' + user.lastName;
         },
         beforeUpdate: async (user, options) => {
-          console.log('in beforeUpdate');
           user.password = await bcrypt.hash(user.password, 10, null);
           user.fullName = user.firstName + ' ' + user.lastName;
         },

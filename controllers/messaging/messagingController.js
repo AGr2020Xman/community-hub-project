@@ -86,4 +86,17 @@ router.post('/api/messages/', (req, res) => {
   res.json(req.body);
 });
 
+router.post('/api/emailgateway', (req, res) => {
+  const parsedNick = req.body.to.split('@');
+  const messageData = {
+    from: req.body.from,
+    to: parsedNick[0],
+    timestamp: new Date(),
+    text: req.body.text,
+  };
+  const participants = [req.body.from, parsedNick[0]];
+  createNewConversation(participants, messageData);
+  res.json(messageData);
+});
+
 module.exports = router;

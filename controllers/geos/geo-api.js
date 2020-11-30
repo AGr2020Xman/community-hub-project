@@ -1,19 +1,25 @@
-const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const db = require('../../models');
 
-// router.get('/api/geo', async (req, res) => {
-//   db.Geo.findAll({
-//     attributes: ['name']
-//   })
-//   .then((allGeos) => {
-//     console.log(allGeos);
-//     response.status(200).json(allGeos);
-//   })
-//   .catch((err) => {
-//     response.status(401).json(err);
-//   });
-// });
+router.get('/geos', (req, res) => {
+  res.render('geos');
+})
 
-  module.exports = router;
+router.get('/api/geos', async (req, res) => {
+    let queryResult;
+    let results;
+    queryResult = await db.Geo.findAll({
+    attributes: ['name'],
+    // include: {
+    //   model: db.Community, attributes: ['id','name']
+    // },
+    raw: true,
+  });
+  results = {
+    searchResult: queryResult,
+  };
+  res.json(results);
+})
+
+module.exports = router;

@@ -1,19 +1,45 @@
-const { response } = require("express");
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const db = require('../../models');
 
-// router.get('/api/geo', async (req, res) => {
-//   db.Geo.findAll({
-//     attributes: ['name']
-//   })
-//   .then((allGeos) => {
-//     console.log(allGeos);
-//     response.status(200).json(allGeos);
-//   })
-//   .catch((err) => {
-//     response.status(401).json(err);
-//   });
-// });
+router.get('/geos', async (req, res) => {
+  let queryResult;
+  let results;
+  queryResult = await db.Geo.findAll({
+    attributes: ['name'],
+    // include: {
+    //   model: db.Community, attributes: ['id','name']
+    // },
+    raw: true,
+  });
+  results = {
+    searchResult: queryResult,
+  };
+  const hbsArr = [];
+  queryResult.forEach((el, index) => {
+    const commObj = {};
+    commObj.name = el.name;
+    hbsArr.push({ ...commObj });
+  });
+  console.log(hbsArr);
 
-  module.exports = router;
+  res.render('geos', { geos: hbsArr });
+});
+
+router.get('/api/geos', async (req, res) => {
+  let queryResult;
+  let results;
+  queryResult = await db.Geo.findAll({
+    attributes: ['name'],
+    // include: {
+    //   model: db.Community, attributes: ['id','name']
+    // },
+    raw: true,
+  });
+  results = {
+    searchResult: queryResult,
+  };
+  res.json(results);
+});
+
+module.exports = router;

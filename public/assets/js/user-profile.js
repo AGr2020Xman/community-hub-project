@@ -29,6 +29,7 @@ $(document).ready(function () {
   // and updates the HTML on the page
   $.get('/api/user_data').then((data) => {
     $('.active-user').text(data.nickname);
+    $('.active-fname').text(data.displayName);
   });
 
   updateForm.on('submit', function (event) {
@@ -40,9 +41,8 @@ $(document).ready(function () {
     };
     console.log(userDataProf);
     if (!userDataProf.firstName || !userDataProf.lastName || !userDataProf.password) {
-      $('#loginModalText').text("Please fill in all fields, even if it's with the same details.");
-      $('#loginModal').modal('show').fadeOut(5000);
-      console.log('error conditioned');
+      $('#editModalText').text("Please fill in all fields, even if it's with the same details.");
+      $('#editModal').modal('show').fadeOut(5000);
       return;
     }
     // If we have an email and password, run the updateUser function
@@ -50,5 +50,26 @@ $(document).ready(function () {
     firstNameField.val('');
     lastNameField.val('');
     passwordField.val('');
+  });
+
+  const deleteUser = (userUUID) => {
+    $.ajax({
+      url: '/api/users',
+      method: 'DELETE',
+      data: {
+        userUUID,
+      },
+      success(req, res) {
+        window.location.replace('/');
+      },
+    }).catch(handleLoginErr);
+  };
+  $('.delete-btn').on('submit', function (event) {
+    event.preventDefault();
+
+    $.get('/api/user_data').then((data) => {
+      const userUUID = data.uniqueIdentifier;
+      deleteUser(userUUID);
+    });
   });
 });

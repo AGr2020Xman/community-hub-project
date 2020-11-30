@@ -64,12 +64,10 @@ $(document).ready(function () {
       },
     }).catch(handleLoginErr);
   };
-  $('.delete-btn').on('submit', function (event) {
+  $('form.delete').on('submit', function (event) {
     event.preventDefault();
-
-    $.get('/api/user_data').then((data) => {
-      const userUUID = data.uniqueIdentifier;
-      deleteUser(userUUID);
-    });
+    const userUUID = $('#hiddenValue').val();
+    console.log(userUUID);
+    deleteUser(userUUID);
   });
 });

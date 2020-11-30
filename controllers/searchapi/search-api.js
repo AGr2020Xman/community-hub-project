@@ -19,6 +19,7 @@ const geoOrCommunity = async (req, res) => {
   const trimSearch = Object.values(query)[0].trim();
   const searchTerm = trimSearch;
 
+  // eslint-disable-next-line default-case
   switch (caseType(query)) {
     case 0:
       queryResult = await db.Community.findAll({

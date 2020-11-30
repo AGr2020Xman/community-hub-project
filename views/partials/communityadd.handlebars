@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card signup-card mx-auto">
+
+                <h5 class="card-header white-text text-center py-4">
+                    <strong>Add a Community</strong>
+                </h5>
+                <div class="card-body px-lg-5 pt-0">
+                    <form class="text-center signup " style="color: #757575;" action="#!" method="POST">
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="md-form">
+                                    <input type="text" id="communityName" class="form-control">
+                                    <label for="communityName">Community Name</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <select class="form-control" id="geo">
+                                    <option>Default select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span> <span class="msg"></span>
+                        </div>
+                        <button
+                            class="signin-btn btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                            type="submit">Post Community</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

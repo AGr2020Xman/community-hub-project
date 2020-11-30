@@ -1,32 +1,32 @@
 const { Model } = require('sequelize');
 
-// const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
-//     host: '127.0.0.1',
-//     dialect: 'mysql',
-// });
-
-// sequelize.authenticate().then((err)=>{
-//     console.log('Connection Successful');
-// }).catch((err)=>{
-//     console.log('Unable to connect to db', err);
-// })
-
 module.exports = (sequelize, DataTypes) => {
   class Geo extends Model {
     static associate(models) {
-      Geo.hasMany(models.Community, { foreignKey: 'communityId', as: 'communities' });
+      Geo.hasMany(models.Community, { onDelete: 'CASCADE' });
     }
   }
   Geo.init(
     {
       name: {
-        type: DataTypes.STRING,
-        max: 50,
-        unique: true,
+        type: DataTypes.ENUM(
+          'Paris',
+          'Tokyo',
+          'London',
+          'Sydney',
+          'Vancouver',
+          'Perth',
+          'Rome',
+          'Geneva',
+          'Amsterdam',
+          'Brisbane'
+        ),
         allowNull: false,
+        unique: true,
       },
     },
     {
+      timestamps: false,
       hooks: {},
       sequelize,
       modelName: 'Geo',

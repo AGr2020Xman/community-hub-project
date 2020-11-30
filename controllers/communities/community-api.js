@@ -19,12 +19,25 @@ const router = express.Router();
 //   }
 // });
 
-router.get('/community', (req, res) => {
+router.get('/communities', (req, res) => {
   res.render('communities');
 })
 
-router.get('/community/add', (req, res) => {
-  res.render('communities', {  });
+router.get('/communities', (req, res) => {
+  res.render('communities', {});
+})
+
+router.get('/api/communities', async (req, res) => {
+    let queryResult;
+    let results;
+    queryResult = await db.Community.findAll({
+    attributes: ['name'],
+    raw: true,
+  });
+  results = {
+    searchResult: queryResult,
+  };
+  res.json(results);
 })
 
 module.exports = router;

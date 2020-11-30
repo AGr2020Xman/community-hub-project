@@ -16,8 +16,6 @@ router.post('/api/users', checkAuthenticated, async (req, res) => {
 router.put('/api/users', checkAuthenticated, async (req, res) => {
   const updatedDetail = await req.body;
   const oldDetail = await req.user;
-  console.log(updatedDetail);
-  console.log('normal log', oldDetail);
   const userUpdate = {
     firstName: updatedDetail.firstName,
     lastName: updatedDetail.lastName,
@@ -39,9 +37,20 @@ router.put('/api/users', checkAuthenticated, async (req, res) => {
 });
 
 router.delete('/api/users', checkAuthenticated, async (req, res) => {
+  const oldDetail = await req.user;
   db.User.destroy({
-    where: {},
-  });
+    where: {
+      uniqueIdentifier: await oldDetail.dataValues.uniqueIdentifier,
+    },
+  })
+  .then(() => {
+    res.status(200);
+    res.redirect('/');
+  })
+  .catch(err) {
+    res.status(400).json(err);
+    console.log('Error related to Delete User', err);
+  }
 });
 
 module.exports = router;

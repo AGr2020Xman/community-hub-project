@@ -4,14 +4,15 @@ const { QueryTypes, Op, Sequelize } = require('sequelize');
 const caseType = (query) => {
   if ('name' in query) {
     return 0;
-  } else if ('partial' in query) {
+  }
+  if ('partial' in query) {
     return 1;
-  } else if ('id' in query) {
+  }
+  if ('id' in query) {
     return 2;
-  } else if ('nickname' in query) {
+  }
+  if ('nickname' in query) {
     return 3;
-  } else {
-    return 4;
   }
 };
 

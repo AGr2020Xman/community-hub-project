@@ -2,6 +2,7 @@ const { checkAuthenticated } = require('../../config/middleware/checkAuth');
 const { typeOfQueryData } = require('./api-user-query');
 const express = require('express');
 const db = require('../../models');
+
 const router = express.Router();
 
 // find a user by full name, nick name, or 'partial' name, or UUID
@@ -24,7 +25,7 @@ router.put('/api/users', checkAuthenticated, async (req, res) => {
   try {
     await db.User.update(userUpdate, {
       where: {
-        uniqueIdentifier: await oldDetail.dataValues.uniqueIdentifier,
+        uniqueIdentifier: await oldDetail.uniqueIdentifier,
       },
       individualHooks: true,
     }).then((dbUser) => {
@@ -37,15 +38,17 @@ router.put('/api/users', checkAuthenticated, async (req, res) => {
 });
 
 router.delete('/api/users', checkAuthenticated, async (req, res) => {
-  const oldDetail = await req.user;
+  const user = await req.user;
+  if (user.uniqueIdentifier !== req.body.userUUID) {
+    res.status(500);
+  }
   db.User.destroy({
     where: {
-      uniqueIdentifier: await oldDetail.dataValues.uniqueIdentifier,
+      uniqueIdentifier: await user.uniqueIdentifier,
     },
   })
-    .then(() => {
-      res.status(200);
-      res.redirect('/');
+    .then((req, res) => {
+      res.status(200).redirect('/logout');
     })
     .catch((err) => {
       res.status(400).json(err);

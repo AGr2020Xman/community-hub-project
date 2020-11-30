@@ -32,6 +32,9 @@ router.get('/api/communities', async (req, res) => {
     let results;
     queryResult = await db.Community.findAll({
     attributes: ['name'],
+    include: {
+      model: db.Geo, attributes: ['id','name']
+    },
     raw: true,
   });
   results = {

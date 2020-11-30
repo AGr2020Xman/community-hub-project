@@ -14,28 +14,27 @@ router.post('/api/users', checkAuthenticated, async (req, res) => {
 });
 
 router.put('/api/users', checkAuthenticated, async (req, res) => {
-  console.log('USER BEFORE UPDATE', req.user);
-  if (!req.user) {
-    res.sendStatus(401);
-    return;
-  }
+  const updatedDetail = await req.body;
+  const oldDetail = await req.user;
+  console.log(updatedDetail);
+  console.log('normal log', oldDetail);
+  const userUpdate = {
+    firstName: updatedDetail.firstName,
+    lastName: updatedDetail.lastName,
+    password: updatedDetail.password,
+  };
   try {
-    db.User.update(
-      {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: req.body.password,
+    await db.User.update(userUpdate, {
+      where: {
+        uniqueIdentifier: await oldDetail.dataValues.uniqueIdentifier,
       },
-      {
-        where: {
-          uniqueIdentifier: req.user.uniqueIdentifier,
-        },
-      }
-    ).then((dbUser) => {
+      individualHooks: true,
+    }).then((dbUser) => {
       res.status(201).json(dbUser);
     });
   } catch (err) {
     res.status(400).json(err);
+    console.log('Error related to Update', err);
   }
 });
 

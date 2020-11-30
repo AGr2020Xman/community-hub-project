@@ -1,5 +1,6 @@
 const { Sequelize, Model } = require('sequelize');
 const bcrypt = require('bcrypt');
+const express = require('express');
 
 // const sequelize = new Sequelize('geo_verse_db', 'root', 'H0n@s0up1234', {
 //     host: '127.0.0.1',
@@ -13,47 +14,46 @@ const bcrypt = require('bcrypt');
 // })
 
 module.exports = (sequelize, DataTypes) => {
-
-    class User extends Model {}
-    User.init(
-        {
-        firstName: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
-                max: 25,
-                notNull: {
-                    msg: 'A name is required.'
-                },
-            }
+  class User extends Model {}
+  User.init(
+    {
+      firstName: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
+          max: 25,
+          notNull: {
+            msg: 'A name is required.',
+          },
         },
-        lastName: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
-                max: 25,
-                notNull: {
-                    msg: 'A last name is required.'
-                }
-            }
+      },
+      lastName: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          is: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/i,
+          max: 25,
+          notNull: {
+            msg: 'A last name is required.',
+          },
         },
-        fullName: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        email: {
+      },
+      fullName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
           isEmail: true,
         },
-        },
-        nickname: {
+      },
+      nickname: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
@@ -61,8 +61,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: true,
         },
-        },
-        password: {
+      },
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -72,12 +72,12 @@ module.exports = (sequelize, DataTypes) => {
           is: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
           max: 128,
         },
-        },
-        uniqueIdentifier: {
+      },
+      uniqueIdentifier: {
         type: DataTypes.UUID,
         defaultValue: Sequelize.UUIDV4,
         unique: true,
-        },
+      },
     },
     {
       hooks: {
@@ -86,12 +86,14 @@ module.exports = (sequelize, DataTypes) => {
           user.fullName = user.firstName + ' ' + user.lastName;
         },
         beforeUpdate: async (user, options) => {
+          console.log('in beforeUpdate');
           user.password = await bcrypt.hash(user.password, 10, null);
-        }
+          user.fullName = user.firstName + ' ' + user.lastName;
+        },
       },
       sequelize,
       modelName: 'User',
     }
-  )
+  );
   return User;
 };

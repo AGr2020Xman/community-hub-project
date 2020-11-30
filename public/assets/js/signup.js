@@ -25,7 +25,7 @@ $(document).ready(function() {
   }
 
   const handleLoginErr = (err) => {
-    $("#alert .msg").text(err.responseJSON);
+    $("#alert .msg").text('Sign up failed');
     $("#alert").fadeIn(500);
   }
 

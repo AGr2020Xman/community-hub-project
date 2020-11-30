@@ -43,14 +43,14 @@ router.delete('/api/users', checkAuthenticated, async (req, res) => {
       uniqueIdentifier: await oldDetail.dataValues.uniqueIdentifier,
     },
   })
-  .then(() => {
-    res.status(200);
-    res.redirect('/');
-  })
-  .catch(err) {
-    res.status(400).json(err);
-    console.log('Error related to Delete User', err);
-  }
+    .then(() => {
+      res.status(200);
+      res.redirect('/');
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+      console.log('Error related to Delete User', err);
+    });
 });
 
 module.exports = router;

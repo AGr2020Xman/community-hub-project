@@ -72,6 +72,37 @@ module.exports = (app) => {
     });
   });
 
+  // Get route for search
+  app.get('/search-sites', async (req, res) => {
+    const sitesRef = db.collection('sites');
+    const sitesSnapShot = await sitesRef.orderBy('title').get();
+    const hbsObject = { sites: {} };
+    sitesRef.get().then((docs) => {
+      for (const result of sitesSnapShot.docs) {
+        if (result.data().title.toLowerCase().includes(req.query.term.toLowerCase())) {
+          hbsObject.sites[result.id] = {
+            ...result.data(),
+          };
+        }
+      }
+      res.render('search-sites', hbsObject);
+    });
+  });
+
+  // API POST route for all sites
+  app.post('/api/search-sites', async (req, res) => {
+    const sitesRef = db.collection('sites');
+    const sitesSnapShot = await sitesRef.orderBy('title').get();
+    const results = [];
+    for (const result of sitesSnapShot.docs) {
+      if (result.data().title.toLowerCase().includes(req.body.term)) {
+        results.push(result.data());
+      }
+    }
+
+    res.json(results);
+  });
+
   // Post route for site
   app.post('/api/sites/', async (req, res) => {
     const pageData = {

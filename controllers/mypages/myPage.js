@@ -68,6 +68,7 @@ module.exports = (app) => {
           ...site.data(),
         };
       });
+      console.log(hbsObject);
       res.render('sites', hbsObject);
     });
   });

@@ -1,5 +1,7 @@
 # Welcome to Geoverse
 
+![badge](https://img.shields.io/badge/License-mit-green.svg)<br />
+
 ##### Bringing the Global, local!
 
 ## Description

@@ -17,13 +17,12 @@ $(document).ready(function () {
       })
       .catch(handleLoginErr);
   };
-
+  
   const handleLoginErr = (err) => {
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   };
 
-  // When the signup button is clicked, we validate the email and password are not blank
   communityCreate.on('submit', function (event) {
     event.preventDefault();
     const newCommunity = {
@@ -35,12 +34,8 @@ $(document).ready(function () {
       $('#incorrect').show().fadeOut(5000);
       return;
     }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(
-      newCommunity.name,
-      newCommunity.geo,
-      
-    );
+
+    postCommunity(newCommunity.name, newCommunity.geo);
     nameInput.val('');
   });
 });

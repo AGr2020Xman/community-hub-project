@@ -30,6 +30,11 @@ const homeDropDownEl = document.querySelector('.home-dropdown');
 // Functions
 const renderLoginMenu = () => {
   homeDropDownEl.innerHTML = '';
+  const userProfEl = document.createElement('a');
+  userProfEl.classList.add('dropdown-item');
+  userProfEl.setAttribute('href', '/user-profile');
+  userProfEl.textContent = 'Profile';
+  homeDropDownEl.appendChild(userProfEl);
   const logoutEl = document.createElement('a');
   logoutEl.classList.add('dropdown-item');
   logoutEl.setAttribute('href', '/logout');

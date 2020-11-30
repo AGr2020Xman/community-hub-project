@@ -33,20 +33,20 @@ $(document).ready(function () {
 
   updateForm.on('submit', function (event) {
     event.preventDefault();
-    const userData = {
+    const userDataProf = {
       firstName: firstNameField.val().trim(),
       lastName: lastNameField.val().trim(),
       password: passwordField.val().trim(),
     };
-    console.log(userData);
-    if (!userData.firstName || !userData.lastName || !userData.password) {
+    console.log(userDataProf);
+    if (!userDataProf.firstName || !userDataProf.lastName || !userDataProf.password) {
       $('#loginModalText').text("Please fill in all fields, even if it's with the same details.");
       $('#loginModal').modal('show').fadeOut(5000);
       console.log('error conditioned');
       return;
     }
     // If we have an email and password, run the updateUser function
-    updateUser(userData.firstName, userData.lastName, userData.password);
+    updateUser(userDataProf.firstName, userDataProf.lastName, userDataProf.password);
     firstNameField.val('');
     lastNameField.val('');
     passwordField.val('');

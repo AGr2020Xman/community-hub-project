@@ -39,6 +39,7 @@ router.put('/api/users', checkAuthenticated, async (req, res) => {
 
 router.delete('/api/users', checkAuthenticated, async (req, res) => {
   const user = await req.user;
+
   if (user.uniqueIdentifier !== req.body.userUUID) {
     res.status(500);
   }
@@ -47,8 +48,10 @@ router.delete('/api/users', checkAuthenticated, async (req, res) => {
       uniqueIdentifier: await user.uniqueIdentifier,
     },
   })
-    .then((req, res) => {
-      res.status(200).redirect('/logout');
+    .then(() => {
+      res.status(200)
+    }).then(() => {
+      window.location.reload();
     })
     .catch((err) => {
       res.status(400).json(err);

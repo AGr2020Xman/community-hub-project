@@ -7,9 +7,9 @@ router.get('/geos', async (req, res) => {
   let results;
   queryResult = await db.Geo.findAll({
     attributes: ['name'],
-    // include: {
-    //   model: db.Community, attributes: ['id','name']
-    // },
+    include: {
+      model: db.Community, attributes: ['id','name']
+    },
     raw: true,
   });
   results = {
@@ -19,6 +19,8 @@ router.get('/geos', async (req, res) => {
   queryResult.forEach((el, index) => {
     const commObj = {};
     commObj.name = el.name;
+    commObj.CommunityId = el['Communities.id'];
+    commObj.CommunityName = el['Communities.name'];
     hbsArr.push({ ...commObj });
   });
   console.log(hbsArr);
@@ -31,9 +33,9 @@ router.get('/api/geos', async (req, res) => {
   let results;
   queryResult = await db.Geo.findAll({
     attributes: ['name'],
-    // include: {
-    //   model: db.Community, attributes: ['id','name']
-    // },
+    include: {
+      model: db.Community, attributes: ['id','name']
+    },
     raw: true,
   });
   results = {

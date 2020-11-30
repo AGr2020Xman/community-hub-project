@@ -7,16 +7,14 @@
     <div class="row">
         {{#each geos}}
         <div class="col-md-4">
-            <div class="card" style="width: 18rem">
-                <a class="search-card-link" href="/sites/{{this.name}}">
-                    <div class="search-card card mx-auto">
-                        <div class="card-body">
-                            <h5 class="card-title">{{this.name}}</h5>
-                        </div>
+            <a class="search-card-link" href="/sites/{{this.name}}">
+                <div class="search-card card mx-auto">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.name}}</h5>
                     </div>
-                </a>
-            </div>
+            </a>
         </div>
-        {{/each}}
     </div>
+    {{/each}}
+</div>
 </div>

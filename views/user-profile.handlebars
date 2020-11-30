@@ -2,10 +2,30 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
+            <div class="card fullname-card mx-auto">
+
+                <h5 class="card-header white-text text-center py-4">
+                    <strong class="active-fname">{{fullName}}</strong>'s Profile
+                </h5>
+
+                <form class="delete" style="color: #757575;" action="#!">
+                    <input type="hidden" name="userUUID" value="{{uniqueIdentifier}}">
+                    <button class="delete-btn btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                        type="submit">Delete Account (Permanent)
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-1">
+    <div class="row">
+        <div class="col-md-12">
             <div class="card signup-card mx-auto">
 
                 <h5 class="card-header white-text text-center py-4">
-                    <strong class="active-user"></strong>'s' Profile
+                    Your Nickname: <strong class="active-user"></strong>
                 </h5>
 
                 <!--Card content-->
@@ -52,11 +72,11 @@
                             type="submit">Edit Details
                         </button>
 
-                        <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content text-center">
                                     <div class="modal-body">
-                                        <p class="pt-3" id="loginModalText"></p>
+                                        <p class="pt-3" id="editModalText"></p>
                                     </div>
                                     <button type="button" class="btn btn-dark" data-dismiss="modal">OK</button>
                                 </div>

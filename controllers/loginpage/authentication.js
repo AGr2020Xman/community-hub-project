@@ -65,4 +65,20 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.delete('/api/user_data', (req, res) => {
+  // We just have to specify which user we want to destroy
+  console.log(req.body);
+  db.User.destroy({
+    where: {
+      uniqueIdentifier: req.body.uniqueIdentifier,
+    },
+  })
+    .then(function (dbUser) {
+      res.status(200).json(dbUser);
+    })
+    .catch((err) => {
+      res.status(401).json(err);
+    });
+});
+
 module.exports = router;

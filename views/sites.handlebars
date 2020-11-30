@@ -1,4 +1,22 @@
-<h1>Sites</h1>
+<link rel="stylesheet" href="/assets/css/style.css" />
+<div class="jumbotron peach-gradient">
+    <h2 class="h1-responsive font-weight-bold text-center my-4 white-text">Sites</h2>
+</div>
+
+<div class="container mt-5">
+    {{#each sites}}
+    <a class="search-card-link" href="/sites/{{geo}}/{{community}}/{{name}}">
+        <div class="search-card card mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+            </div>
+        </div>
+    </a>
+    {{/each}}
+</div>
+
+
+{{!-- <h1>Sites</h1>
 
 <ul>
     {{#each sites}}
@@ -6,4 +24,4 @@
         <a href="/sites/{{geo}}/{{community}}/{{name}}">{{title}}</a>
     </li>
     {{/each}}
-</ul>
+</ul> --}}

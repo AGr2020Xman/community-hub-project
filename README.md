@@ -39,6 +39,11 @@ Locally hosted on [http://localhost:3001](http://localhost:3001) as per configur
 
 For normal usage - see [deployed app](https://community-hub-project.herokuapp.com/).
 
+- Search for pages (try "Liz" to find her car page).
+- Visit Geos and Communites
+- Message friends by sending a message to their @nickname.
+- Change you account details or delete your account.
+
 ## User Story
 
 ```

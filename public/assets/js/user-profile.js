@@ -19,8 +19,8 @@ $(document).ready(function () {
         window.location.replace('/');
       },
     }).catch(() => {
-      $('#deleteModalText').text('Delete failed.');
-      $('#deleteModal').modal('show').fadeOut(4000);
+      $('#editModalText').text('edit failed.');
+      $('#editModal').modal('show').fadeOut(4000);
     });
   };
 
@@ -62,7 +62,10 @@ $(document).ready(function () {
       success(req, res) {
         window.location.replace('/');
       },
-    }).catch(handleLoginErr);
+    }).catch(()=>{
+      $('#deleteModalText').text('Delete failed.');
+      $('#deleteModal').modal('show').fadeOut(4000);
+    });
   };
   $('form.delete').on('submit', function (event) {
     event.preventDefault();
